@@ -6,7 +6,7 @@
     border-radius: $card-border-radius;
     
     &:not(:last-child){
-        margin-bottom: rem(20px);
+        margin-bottom: rem($card-pool-gap);
     }
 
     &--red {
@@ -15,5 +15,10 @@
     &--blue {
         border: 3px solid $color-blue;
     }
+}
 
+// Grabbing Cursor
+.card-pool .card {
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
 }
