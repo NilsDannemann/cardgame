@@ -1,0 +1,12 @@
+#files
+*.log
+*.sql
+*.pem
+*.crt
+*.env
+
+/.htaccess
+/sitemap.xml
+/sitemap.xml.gz
+
+prepros*
