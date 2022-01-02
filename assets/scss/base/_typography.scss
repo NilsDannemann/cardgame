@@ -1,0 +1,230 @@
+// https://github.com/AdamMarsden/simple-typography/blob/master/style.scss
+
+
+// Make type normal across browsers
+*, html, body {
+    font-size: $base-font-size;
+    font-family: $font-family;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+
+// Headers
+h1, h2, h3, h4, h5, h6 {
+    margin-top: $headline-margin * 1.5;
+    color: $color-headline;
+    line-height: $headline-line-height;
+    font-weight: 700;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+h1 {
+    font-size: $headline-size;
+    margin-bottom: $headline-margin;
+}
+
+h2 {
+    font-size: $headline-size / 1.3;
+    margin-bottom: $headline-margin / 1.3;
+}
+
+h3 {
+    font-size: $headline-size / 1.5;
+    margin-bottom: $headline-margin / 1.5;
+}
+
+h4 {
+    font-size: $headline-size / 1.7;
+    margin-bottom: $headline-margin / 1.7;
+}
+
+h5 {
+    font-size: $headline-size / 1.8;
+    margin-bottom: $headline-margin / 1.8;
+}
+
+h6 {
+    font-size: $headline-size / 2;
+    margin-bottom: $headline-margin / 2;
+}
+
+
+
+// Paragraphs
+p {
+    margin-bottom: $text-margin;
+    font-size: $text-size;
+    line-height: $text-line-height;
+    color: $color-text;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+
+
+// Links
+a {
+    color: $color-link;
+    transition: all 0.2s ease;
+
+    &:hover {
+        color: darken($color-link, 20%);
+    }
+}
+
+
+// Lists
+ul,
+ol {
+    margin: $text-margin 0 0 20px;
+
+    li {
+        margin-top: 10px;
+        line-height: $text-line-height;
+        color: $color-text;
+    }
+
+    ul,
+    ol {
+        margin-top: 0;
+    }
+}
+
+ul {
+
+    li {
+        list-style: disc;
+    }
+
+    ul {
+
+        li {
+            list-style: circle;
+        }
+    }
+}
+
+ol {
+
+    li {
+        list-style: decimal;
+    }
+}
+
+
+// hr
+hr {
+    height: 1px;
+    margin: $hr-margin 0;
+    border: none;
+    background-color: $color-border;
+}
+
+
+// Blockquote
+blockquote {
+    margin: $blockquote-margin 0;
+    font-size: $blockquote-size;
+    line-height: $blockquote-line-height;
+    color: $color-blockquote;
+    text-align: center;
+    font-style: italic;
+}
+
+
+// Tables
+table {
+    width: 100%;
+    margin: $blockquote-margin 0;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid $color-border;
+    text-align: left;
+}
+
+th {
+    font-weight: $font-weight-bold;
+}
+
+th, td {
+    padding: 15px;
+}
+
+
+// Figure
+figure {
+    margin: $blockquote-margin 0;
+
+    img {
+        margin: 0;
+    }
+}
+
+figcaption {
+    margin-top: 10px;
+    color: lighten($color-text, 10%);
+    font-size: $text-margin * 0.8;
+}
+
+
+// Code
+pre {
+    display: block;
+    margin: 0 0 40px 0;
+    padding: 20px;
+    background-color: lighten($color-border, 12%);
+    border: 1px solid $color-border;
+    overflow: auto;
+    border-radius: 3px;
+
+    code {
+        position: static;
+        padding: 0;
+        border: none;
+        line-height: 1.5em;
+    }
+}
+
+code {
+    position: relative;
+    top: -0.2em;
+    padding: 3px;
+    font-family: Courier New, Courier, monospace;
+    font-size: $text-size / 1.2;
+    color: darken($color-border, 70%);
+    line-height: 1em;
+    pointer-events: none;
+    border: 1px solid $color-border;
+    border-radius: 3px;
+}
+
+
+
+// Misc Styles
+em,
+i,
+.italic {
+    font-style: italic;
+}
+
+strong,
+b,
+.bold {
+    font-weight: $font-weight-bold;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    margin: $blockquote-margin 0;
+}

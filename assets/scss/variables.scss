@@ -1,10 +1,53 @@
-html {
-    --color-grey: #f1f7f9;
-    --color-black: #273742;
-    --color-border: #E2E8F0;
+// Colors 
+$color-red        : #FF5D5D;
+$color-blue       : #5D9AFF;
+$color-grey       : #f1f7f9;
+$color-grey-dark  : #636f74;
+$color-grey-darker: #222A30;
+$color-black      : #131e25;
+$color-border     : #E2E8F0;
+$color-link       : #5D9AFF;
+$color-headline   : #ffffff;
+$color-blockquote : #ffffff;
+$color-text       : #f1f7f9;
 
-    --border: 1px solid var(--color-border);
-    --border-radius: 4px;
+// Font Family
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;900&display=swap');
+$font-family: 'Roboto', sans-serif;
 
-    --box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
+// Base Font for HTML
+$base-font-size: 16px;
+
+// Paragraph Styles
+$text-size       : rem(17px);
+$text-line-height: 1.5em;
+$text-margin     : 20px;
+
+// Headline Styles
+$headline-size       : rem(40px);
+$headline-line-height: 1.25em;
+$headline-margin     : $text-margin * 1.2;
+
+// Blockquote Styles
+$blockquote-size       : rem(23px);
+$blockquote-line-height: 1.5em;
+$blockquote-margin     : $text-margin * 1.5;
+
+// hr
+$hr-margin: 30px;
+
+// Type Misc
+$font-weight-thin: 100;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 900;
+
+// Borders
+$border: 1px solid var($color-border);
+
+// Border-Radius
+$border-radius: 4px;
+
+// Box-shadows:
+$box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),0 1px 2px 0 rgba(0, 0, 0, 0.06);
