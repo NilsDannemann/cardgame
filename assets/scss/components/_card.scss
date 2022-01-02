@@ -1,12 +1,12 @@
 .card {
     width: $card-width;
     height: $card-height;
-    padding: rem(15px);
+    padding: rem(20px);
     background-color: black;
     border-radius: $card-border-radius;
     
     &:not(:last-child){
-        margin-bottom: rem(15px);
+        margin-bottom: rem(20px);
     }
 
     &--red {
