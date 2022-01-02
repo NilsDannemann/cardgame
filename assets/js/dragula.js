@@ -3,9 +3,9 @@
 document.addEventListener("DOMContentLoaded", function() {
    
     // Init for Player A
-    dragula([ document.querySelector( '.main__aside--left' )].concat(Array.from( document.querySelectorAll('.battlefield__slot'))), options);
+    dragula([ document.querySelector( '.main__aside--left .card-pool' )].concat(Array.from( document.querySelectorAll('.battlefield__slot'))), options);
     // Init for Player B
-    dragula([ document.querySelector( '.main__aside--right' )].concat(Array.from( document.querySelectorAll('.battlefield__slot'))), options);
+    dragula([ document.querySelector( '.main__aside--right .card-pool' )].concat(Array.from( document.querySelectorAll('.battlefield__slot'))), options);
     
     // Options
     var options = {
@@ -31,6 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
           slideFactorX: 0,               // allows users to select the amount of movement on the X axis before it is considered a drag instead of a click
           slideFactorY: 0,               // allows users to select the amount of movement on the Y axis before it is considered a drag instead of a click
     }
-    
+
 });
 
