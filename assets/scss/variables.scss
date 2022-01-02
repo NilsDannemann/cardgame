@@ -11,38 +11,8 @@ $color-headline   : #ffffff;
 $color-blockquote : #ffffff;
 $color-text       : #f1f7f9;
 
-// Font Family
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;900&display=swap');
-$font-family: 'Roboto', sans-serif;
-
-// Base Font for HTML
-$base-font-size: 16px;
-
-// Font Weight
-$font-weight-thin: 100;
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-bold: 900;
-
-// Paragraph Styles
-$text-size       : rem(17px);
-$text-line-height: 1.5em;
-$text-margin     : 20px;
-
-// Headline Styles
-$headline-size       : rem(40px);
-$headline-line-height: 1.25em;
-$headline-margin     : $text-margin * 1.2;
-
-// Blockquote Styles
-$blockquote-size       : rem(23px);
-$blockquote-line-height: 1.5em;
-$blockquote-margin     : $text-margin * 1.5;
-
-// hr
-$hr-margin: 30px;
-
+// Typography
+// varliables in _typography.scss
 
 // Borders
 $border: 1px solid var($color-border);

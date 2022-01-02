@@ -1,11 +1,57 @@
 // https://github.com/AdamMarsden/simple-typography/blob/master/style.scss
 
+
+// Variables
+
+// Font Family
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;900&display=swap');
+$font-family: 'Roboto', sans-serif;
+
+// Base Font for HTML
+$base-font-size: 16px;
+
+// Font Weight
+$font-weight-thin: 100;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 900;
+
+// Paragraph Styles
+$text-size       : rem(17px);
+$text-line-height: 1.5em;
+$text-margin     : 20px;
+
+// Headline Styles
+$headline-size       : rem(40px);
+$headline-line-height: 1.25em;
+$headline-margin     : $text-margin * 1.2;
+
+// Blockquote Styles
+$blockquote-size       : rem(23px);
+$blockquote-line-height: 1.5em;
+$blockquote-margin     : $text-margin * 1.5;
+
+// hr
+$hr-margin: 30px;
+
+
+//Global
+*, html, body {
+    font-size: $base-font-size;
+    font-family: $font-family;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
 // Headers
 h1, h2, h3, h4, h5, h6 {
     margin-top: $headline-margin * 1.5;
     color: $color-headline;
     line-height: $headline-line-height;
-    font-weight: 700;
+    font-weight: $font-weight-bold;
 
     &:first-child {
         margin-top: 0;
@@ -42,8 +88,6 @@ h6 {
     margin-bottom: $headline-margin / 2;
 }
 
-
-
 // Paragraphs
 p {
     margin-bottom: $text-margin;
@@ -56,8 +100,6 @@ p {
     }
 }
 
-
-
 // Links
 a {
     color: $color-link;
@@ -67,7 +109,6 @@ a {
         color: darken($color-link, 20%);
     }
 }
-
 
 // Lists
 ul,
@@ -116,7 +157,6 @@ hr {
     background-color: $color-border;
 }
 
-
 // Blockquote
 blockquote {
     margin: $blockquote-margin 0;
@@ -126,7 +166,6 @@ blockquote {
     text-align: center;
     font-style: italic;
 }
-
 
 // Tables
 table {
@@ -148,7 +187,6 @@ th, td {
     padding: 15px;
 }
 
-
 // Figure
 figure {
     margin: $blockquote-margin 0;
@@ -163,7 +201,6 @@ figcaption {
     color: lighten($color-text, 10%);
     font-size: $text-margin * 0.8;
 }
-
 
 // Code
 pre {
@@ -195,8 +232,6 @@ code {
     border: 1px solid $color-border;
     border-radius: 3px;
 }
-
-
 
 // Misc Styles
 em,
