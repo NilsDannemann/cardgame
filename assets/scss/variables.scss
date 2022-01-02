@@ -18,6 +18,13 @@ $font-family: 'Roboto', sans-serif;
 // Base Font for HTML
 $base-font-size: 16px;
 
+// Font Weight
+$font-weight-thin: 100;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 900;
+
 // Paragraph Styles
 $text-size       : rem(17px);
 $text-line-height: 1.5em;
@@ -36,12 +43,6 @@ $blockquote-margin     : $text-margin * 1.5;
 // hr
 $hr-margin: 30px;
 
-// Type Misc
-$font-weight-thin: 100;
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-bold: 900;
 
 // Borders
 $border: 1px solid var($color-border);
