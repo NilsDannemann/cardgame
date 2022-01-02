@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: $footer-height;
+
+    &__stage {
+        text-align: center;
+        flex: 1;
+    }
+
+    &__aside {
+        width: $sidebar-width;
+
+        &--left {
+            text-align: left;
+        }
+        &--right {
+            text-align: right;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-.card {
+.deck {
     width: $card-width;
     height: $card-height;
     padding: rem(15px);
@@ -10,10 +10,10 @@
     }
 
     &--red {
-        border: 3px solid $color-red;
+        background-color: $color-red;
     }
     &--blue {
-        border: 3px solid $color-blue;
+        background-color: $color-blue;
     }
 
 }

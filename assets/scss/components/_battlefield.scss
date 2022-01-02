@@ -1,0 +1,12 @@
+.battlefield {
+    display: grid;
+    grid-template-rows: $card-width $card-width $card-width;
+    grid-template-columns: $card-width $card-width $card-width;
+    grid-gap: rem(30px);
+
+    &__slot {
+        padding: rem(15px);
+        background-color: $color-grey-darker;
+        border-radius: $card-border-radius;
+    }
+}
