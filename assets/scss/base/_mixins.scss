@@ -2,3 +2,14 @@
 @function rem($px, $base: $base-font-size) {
     @return ($px / $base) * 1rem;
 }
+
+// Card State - Hover
+@mixin card-state-hover($color: false) {
+    transform: scale(1.05);
+    box-shadow: $box-shadow-m;
+}
+// Card State - Floating
+@mixin card-state-floating($color: false) {
+    transform: scale(1.15);
+    box-shadow: $box-shadow-l;
+}

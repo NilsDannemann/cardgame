@@ -2,10 +2,12 @@
   position: fixed !important;
   margin: 0 !important;
   z-index: 9999 !important;
-  opacity: 0.8;
+  // opacity: 0.8;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   filter: alpha(opacity=80);  
   cursor: grabbing;
+  @include transition();
+  @include card-state-floating();
 }
 .gu-hide {
   display: none !important;

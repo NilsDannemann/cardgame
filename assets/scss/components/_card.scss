@@ -4,7 +4,9 @@
     padding: rem(20px);
     background-color: black;
     border-radius: $card-border-radius;
-    
+    box-shadow: $card-box-shadow;
+    @include transition();
+
     &:not(:last-child){
         margin-bottom: rem($card-pool-gap);
     }
@@ -21,4 +23,10 @@
 .card-pool .card {
     cursor: move; /* fallback if grab cursor is unsupported */
     cursor: grab;
+}
+// Hover Effects
+.card-pool .card {
+    &:hover {
+        @include card-state-hover();
+    }
 }
