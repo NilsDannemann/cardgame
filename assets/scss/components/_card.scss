@@ -3,10 +3,6 @@
     display: flex;
     width: $card-width;
     height: $card-height;
-    perspective: 400px;
-	transform-style: preserve-3d;
-	will-change: transform;	
-
     &:not(:last-child){
         margin-bottom: rem($card-pool-gap);
     }
@@ -18,10 +14,17 @@
         box-shadow: $card-box-shadow;
         background-image: url('../img/cards/sample-card.jpg');
         background-size: cover;
-        transform-style: preserve-3d;
-        will-change: transform;
+        // perspective: 400px;
+        // transform-style: preserve-3d;
+        // will-change: transform;
         @include transition();
     }
+
+    &__front {
+    }
+    &__back {
+    }
+
     &--red {
         #{$this}__inner { border: 3px solid $color-red; }
     }
@@ -33,6 +36,8 @@
         @include transition();
         @include card-state-floating();
     }
+    &--dropped {}
+    &--flipped {}
 }
 
 // Grabbing Cursor
