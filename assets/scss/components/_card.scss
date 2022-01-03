@@ -1,7 +1,7 @@
 .card {
+    display: flex;
     width: $card-width;
     height: $card-height;
-    padding: rem(20px);
     background-color: black;
     border-radius: $card-border-radius;
     box-shadow: $card-box-shadow;
@@ -11,6 +11,12 @@
         margin-bottom: rem($card-pool-gap);
     }
 
+    &__inner {
+        flex: 1;
+        border-radius: $card-border-radius - 3px;
+        background-image: url('../img/cards/sample-card.jpg');
+        background-size: cover;
+    }
     &--red {
         border: 3px solid $color-red;
     }
