@@ -1,4 +1,5 @@
 .deck {
+    $this: &;
     width: $card-width;
     height: $card-height;
     padding: rem(20px);

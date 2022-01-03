@@ -1,4 +1,5 @@
 .battlefield {
+    $this: &;
     display: grid;
     grid-template-rows: $card-width $card-width $card-width;
     grid-template-columns: $card-width $card-width $card-width;

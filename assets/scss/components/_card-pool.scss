@@ -1,4 +1,5 @@
 .card-pool {
+    $this: &;
     min-height: ($card-height * 3) + ($card-pool-gap * 2);
 
     &:not(:last-child){
