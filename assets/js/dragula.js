@@ -55,6 +55,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Mark card as dropped
         el.classList.add('card--dropped');
+        setTimeout(() => {
+            el.classList.add('card--flipped');
+        }, 500);
         // Mark slot as filled
         target.classList.add('battlefield__slot--filled');
         // If card dropped in slot: Remove slot as possible drop target 
