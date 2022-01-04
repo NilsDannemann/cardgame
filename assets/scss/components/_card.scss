@@ -4,6 +4,7 @@
     width: $card-width;
     height: $card-height;
     perspective: 800px;
+    position: relative;
     
     &:not(:last-child){
         margin-bottom: rem($card-pool-gap);
@@ -11,37 +12,46 @@
 
     &__inner {
         flex: 1;
-        background-color: black;
+        transform-style: preserve-3d;
+        will-change: transform;
         border-radius: $card-border-radius;
         box-shadow: $card-box-shadow;
-        background-image: url('../img/cards/sample-card.jpg');
-        background-size: cover;
-        transform-style: preserve-3d;
-        transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        will-change: transform;
         @include transition();
         
     }
-    
     &__front {
         position: absolute;
         width: 100%;
         height: 100%;
+        color: black;
+        background-color: #fff;
+        background-image: url('../img/cards/sample-card.jpg');
+        background-size: cover;
+        border-radius: $card-border-radius;
+        box-shadow: $card-box-shadow;
         backface-visibility: hidden;
     }
     &__back {
         position: absolute;
         width: 100%;
         height: 100%;
+        color: black;
+        background-color: #fff;
+        background-image: url('../img/cards/sample-card.jpg');
+        background-size: cover;
         backface-visibility: hidden;
-        transform: rotateY(180deg);
+        border-radius: $card-border-radius;
+        box-shadow: $card-box-shadow;
+        transform: rotateY(180deg); //For: flip effect
     }
 
     &--red {
-        #{$this}__inner { border: 3px solid $color-red; }
+        #{$this}__front,
+        #{$this}__back { border: 3px solid $color-red; }
     }
     &--blue {
-        #{$this}__inner { border: 3px solid $color-blue; }
+        #{$this}__front,
+        #{$this}__back { border: 3px solid $color-blue; }
     }
     &--flying {
         cursor: grabbing;

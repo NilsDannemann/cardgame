@@ -55,9 +55,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Mark card as dropped
         el.classList.add('card--dropped');
+        //Placeholder for later: add class to flip card
         setTimeout(() => {
             el.classList.add('card--flipped');
         }, 500);
+        //Placeholder for later: toggle class to change card color
+        setTimeout(() => {
+            if ( el.classList.contains('card--red') ) {
+                el.classList.remove('card--red');
+                el.classList.add('card--blue');
+            } else {
+                el.classList.remove('card--blue');
+                el.classList.add('card--red');
+            }
+        }, 900);
         // Mark slot as filled
         target.classList.add('battlefield__slot--filled');
         // If card dropped in slot: Remove slot as possible drop target 
