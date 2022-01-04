@@ -45,13 +45,16 @@ document.addEventListener("DOMContentLoaded", function() {
         // console.log(target);
         // console.log(source);
         // console.log(sibling);
+        // console.log(drake.containers);
 
         // Mark card as dropped
         el.classList.add('card--dropped');
         // Mark slot as filled
         target.classList.add('battlefield__slot--filled');
-        // Remove slot as possible drop target
-        drake.containers.splice(drake.containers.indexOf(target), 1);
+        // If card dropped in slot: Remove slot from possible drop containers 
+        if(target != source) {
+            drake.containers.splice(drake.containers.indexOf(target), 1);
+        }
     });
     
 });
