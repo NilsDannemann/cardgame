@@ -3,6 +3,8 @@
 document.addEventListener("DOMContentLoaded", function() {
    
     // Init for Player A
+    var playerCardBoardA = document.querySelector( '.main__aside--left' );
+    var playerCardBoardB = document.querySelector( '.main__aside--right' );
     var playerCardPoolA = document.querySelector( '.main__aside--left .card-pool' );
     var playerCardPoolB = document.querySelector( '.main__aside--right .card-pool' );
     var drake = dragula([playerCardPoolA, playerCardPoolB].concat(Array.from(document.querySelectorAll('.battlefield__slot'))), options);
@@ -33,6 +35,10 @@ document.addEventListener("DOMContentLoaded", function() {
           slideFactorY: 0,               // allows users to select the amount of movement on the Y axis before it is considered a drag instead of a click
     }
 
+    // Scroll player card Boards to starting position
+    playerCardBoardA.scrollTop = 0;
+    playerCardBoardB.scrollTop = playerCardBoardB.scrollHeight;
+
     // Drag Card
     drake.on('drag', function(el, source) {
         // console.log(el);
@@ -51,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
         el.classList.add('card--dropped');
         // Mark slot as filled
         target.classList.add('battlefield__slot--filled');
-        // If card dropped in slot: Remove slot from possible drop containers 
+        // If card dropped in slot: Remove slot as possible drop target 
         if(target != source) {
             drake.containers.splice(drake.containers.indexOf(target), 1);
         }
