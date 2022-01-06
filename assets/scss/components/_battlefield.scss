@@ -20,6 +20,11 @@
             height: rem(7.5px);
             
         }
+
+        &--filled {}
+        &--red {}
+        &--blue {}
+
         // Slot 1
         &:nth-child(1) {
             &::before {
@@ -125,5 +130,8 @@
                 display: none;
             }
         }
+    
+    
     }
+
 }

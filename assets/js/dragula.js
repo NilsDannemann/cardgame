@@ -53,28 +53,60 @@ document.addEventListener("DOMContentLoaded", function() {
         // console.log(sibling);
         // console.log(drake.containers);
 
-        // Mark card as dropped
-        el.classList.add('card--dropped');
-        //Placeholder for later: add class to flip card
-        setTimeout(() => {
-            el.classList.add('card--flipped');
-        }, 500);
-        //Placeholder for later: toggle class to change card color
-        setTimeout(() => {
-            if ( el.classList.contains('card--red') ) {
-                el.classList.remove('card--red');
-                el.classList.add('card--blue');
-            } else {
-                el.classList.remove('card--blue');
-                el.classList.add('card--red');
-            }
-        }, 900);
-        // Mark slot as filled
-        target.classList.add('battlefield__slot--filled');
         // If card dropped in slot: Remove slot as possible drop target 
         if(target != source) {
             drake.containers.splice(drake.containers.indexOf(target), 1);
         }
+
+        setCardState(el);
+
+        setBattlefieldSlotState();
+
     });
+
+    // Set Battlefield Slot State
+    function setBattlefieldSlotState(slot) {
+        var slots = document.querySelectorAll( '.battlefield__slot' );
+        
+        slots.forEach(slot => {
+            var slotCard = slot.querySelectorAll('.card')[0];
+
+            if ( slotCard ) {
+                // Set slot-state to filled
+                slot.classList.add('battlefield__slot--filled');
+                
+                // Set slot-state to color
+                if ( slotCard.classList.contains('card--red') ) {
+                    slot.classList.add('battlefield__slot--red');
+                    slot.classList.remove('battlefield__slot--blue');
+                } else {
+                    slot.classList.add('battlefield__slot--blue');
+                    slot.classList.remove('battlefield__slot--red');
+                }
+            }
+        });
+    }
+    
+    // Set Card State
+    function setCardState(card) {
+        // Set card-state to dropped
+        card.classList.add('card--dropped');
+
+        //Placeholder for later: add class to flip card
+        setTimeout(() => {
+            card.classList.add('card--flipped');
+        }, 500);
+
+        //Placeholder for later: toggle class to change card color
+        setTimeout(() => {
+            if ( card.classList.contains('card--red') ) {
+                card.classList.remove('card--red');
+                card.classList.add('card--blue');
+            } else {
+                card.classList.remove('card--blue');
+                card.classList.add('card--red');
+            }
+        }, 900);
+    }
     
 });
