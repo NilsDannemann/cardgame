@@ -53,19 +53,21 @@ document.addEventListener("DOMContentLoaded", function() {
         // console.log(sibling);
         // console.log(drake.containers);
 
-        // If card dropped in slot: Remove slot as possible drop target 
+        // If card dropped in slot
         if(target != source) {
+            // Remove slot as possible drop target 
             drake.containers.splice(drake.containers.indexOf(target), 1);
+            // Set Card State
+            setCardState(el);
+            // Set Slot State
+            setSlotState();
         }
 
-        setCardState(el);
-
-        setBattlefieldSlotState();
 
     });
 
-    // Set Battlefield Slot State
-    function setBattlefieldSlotState(slot) {
+    // Set Slot State
+    function setSlotState(slot) {
         var slots = document.querySelectorAll( '.battlefield__slot' );
         
         slots.forEach(slot => {
