@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 card.classList.remove('card--blue');
                 card.classList.add('card--red');
             }
-        }, 900);
+        }, 550);
     }
     
 });
