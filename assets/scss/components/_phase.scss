@@ -6,6 +6,9 @@
     color: #fff;
     overflow: hidden;
     
+    &--active {
+    }
+
     &--red {
         flex-direction: row;
         
@@ -23,18 +26,11 @@
         }
     }
 
-    &--1 {
-        &::after {content: 'Draw'}
-    }
-    &--2 {
-        &::after {content: 'Summon'}
-    }
-    &--3 {
-        &::after {content: 'Combat'}
-    }
-    &--4 {
-        &::after {content: 'End'}
-    }
+    &::after {content: 'Defense'}
+    &--1 {&::after {content: 'Draw'}}
+    &--2 {&::after {content: 'Summon'}}
+    &--3 {&::after {content: 'Combat'}}
+    &--4 {&::after {content: 'End'}}
 
     &__step {
         border-radius: $border-radius-s;

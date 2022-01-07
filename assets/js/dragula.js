@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Init New Game
     var playerCardBoardA = document.querySelector( '.main__aside--left' );
     var playerCardBoardB = document.querySelector( '.main__aside--right' );
+    var playerPhaseBlockA = document.querySelector( '.footer__aside--left .phase' );
+    var playerPhaseBlockB = document.querySelector( '.footer__aside--right .phase' );
     initNewGame(playerCardBoardA, playerCardBoardB);
 
     // Player Action - Drag Card
@@ -54,14 +56,10 @@ document.addEventListener("DOMContentLoaded", function() {
         // Check if Card dropped in Slot
         if(target != source) {
             cardDrop(el, target);
-            cardAttack(el, target);
-            cardFlip(el, target);
 
             checkCardStates();
             checkSlotStates();
         }
-
-
     });
 
 
@@ -143,6 +141,28 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    
+    // Game State - Update Phase
+    function updatePhase($phaseBlock) {
+
+        // Cycle through phases
+        if ( $phaseBlock.classList.contains('phase--1') ) {
+            $phaseBlock.classList.remove('phase--1');
+            $phaseBlock.classList.add('phase--2');
+        } else if( $phaseBlock.classList.contains('phase--2') ) {
+            $phaseBlock.classList.remove('phase--2');
+            $phaseBlock.classList.add('phase--3');
+        } else if( $phaseBlock.classList.contains('phase--3') ) {
+            $phaseBlock.classList.remove('phase--3');
+            $phaseBlock.classList.add('phase--4');
+        } else if( $phaseBlock.classList.contains('phase--4') ) {
+            $phaseBlock.classList.remove('phase--4');
+            $phaseBlock.classList.remove('phase--active');
+        } else {
+            $phaseBlock.classList.add('phase--1');
+            $phaseBlock.classList.add('phase--active');
+        }
+    }
 
     // Game State - Init new Game
     function initNewGame(boardA, boardB) {
@@ -153,4 +173,26 @@ document.addEventListener("DOMContentLoaded", function() {
         boardB.scrollTop = playerCardBoardB.scrollHeight;
     }
     
+
+
+    // For testing purposes (remove later)
+
+    // Update Phase on click
+    playerPhaseBlockA.addEventListener('click', function(){
+        updatePhase(playerPhaseBlockA);
+    });
+    playerPhaseBlockB.addEventListener('click', function(){
+        updatePhase(playerPhaseBlockB);
+    });
+
+    // Attack & Flip Card on click
+    var allCards = document.querySelectorAll( '.card' );
+    allCards.forEach(card => {
+        card.addEventListener('click', function(){
+            cardAttack(card);
+            cardFlip(card);
+        });
+    });
+
+
 });
