@@ -1,11 +1,14 @@
 .score {
+    $this: &;
     display: flex;
     align-items: center;
 
     &--red {
+        flex-direction: row-reverse;
         margin-right: rem(10px);
     }
     &--blue {
+        flex-direction: row;
         margin-left: rem(10px);
     }
 
@@ -15,5 +18,12 @@
         border-radius: 100px;
         background-color: $color-grey-darker;
         margin: 0 rem(3.5px);
+
+        #{$this}--red &--filled {
+            background-color: $color-red;
+        }
+        #{$this}--blue &--filled {
+            background-color: $color-blue;
+        }
     }
 }
