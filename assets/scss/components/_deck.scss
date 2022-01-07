@@ -5,16 +5,17 @@
     padding: rem(20px);
     background-color: black;
     border-radius: $card-border-radius;
+    box-shadow: $card-box-shadow;
     
     &:not(:last-child){
         margin-bottom: rem($card-pool-gap);
     }
 
     &--red {
-        
+        background-color: $color-red;
     }
     &--blue {
-        
+        background-color: $color-blue;
     }
 
 }

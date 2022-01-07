@@ -15,7 +15,6 @@
     &__aside {
         width: $sidebar-width;
         padding: rem(20px);
-        background-color: $color-grey-darker;
 
         // Scrollable + Hide Scrollbar
         overflow: scroll;
@@ -24,10 +23,12 @@
         &--left {
             border-top-right-radius: calc(#{20px + $card-border-radius});
             border-bottom-right-radius: calc(#{20px + $card-border-radius});
+            background-color: $color-red-dark;
         }
         &--right {
             border-top-left-radius: calc(#{20px + $card-border-radius});
             border-bottom-left-radius: calc(#{20px + $card-border-radius});
+            background-color: $color-blue-dark;
         }
     }
 }

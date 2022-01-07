@@ -1,0 +1,12 @@
+.avatar {
+    width: rem(22.5px);
+    height: rem(22.5px);
+
+    &--red {
+        margin-right: rem(10px);
+    }
+    &--blue {
+        order: 1;
+        margin-left: rem(10px);
+    }
+}

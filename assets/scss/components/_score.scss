@@ -1,0 +1,19 @@
+.score {
+    display: flex;
+    align-items: center;
+
+    &--red {
+        margin-right: rem(10px);
+    }
+    &--blue {
+        margin-left: rem(10px);
+    }
+
+    &__dot {
+        width: rem(10px);
+        height: rem(10px);
+        border-radius: 100px;
+        background-color: $color-grey-darker;
+        margin: 0 rem(3.5px);
+    }
+}
