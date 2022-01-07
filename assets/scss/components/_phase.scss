@@ -2,39 +2,54 @@
     $this: &;
     display: flex;
     justify-content: center;
-    align-items: stretch;
+    align-items: center;
     color: #fff;
-    border-radius: $border-radius-s;
-    background-color: $color-grey-darker;
     overflow: hidden;
-
+    
     &--red {
         flex-direction: row;
+        
+        #{$this}__step {
+            margin-right: 5px;
+            &:last-child {margin-right: 10px;}
+        }
     }
     &--blue {
         flex-direction: row-reverse;
+        
+        #{$this}__step {
+            margin-left: 5px;
+            &:last-child {margin-left: 10px;}
+        }
     }
 
-    &--active {
-
+    &--1 {
+        &::after {content: 'Draw'}
+    }
+    &--2 {
+        &::after {content: 'Summon'}
+    }
+    &--3 {
+        &::after {content: 'Combat'}
+    }
+    &--4 {
+        &::after {content: 'End'}
     }
 
     &__step {
-        width: rem(20px);
+        border-radius: $border-radius-s;
+        background-color: $color-grey-darker;
+        width: rem(10px);
+        height: rem(20px);
 
-        #{$this}--red &--complete {
-            background-color: $color-red;
-        }
-        #{$this}--blue &--complete {
-            background-color: $color-blue;
-        }
-    }
+        #{$this}--1#{$this}--red &:nth-child(-n+1) {background-color: $color-red;}
+        #{$this}--2#{$this}--red &:nth-child(-n+2) {background-color: $color-red;}
+        #{$this}--3#{$this}--red &:nth-child(-n+3) {background-color: $color-red;}
+        #{$this}--4#{$this}--red &:nth-child(-n+4) {background-color: $color-red;}
 
-    &__label {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: rem(5px) 0;
-        width: $card-width - 80px;
+        #{$this}--1#{$this}--blue &:nth-child(-n+1) {background-color: $color-blue;}
+        #{$this}--2#{$this}--blue &:nth-child(-n+2) {background-color: $color-blue;}
+        #{$this}--3#{$this}--blue &:nth-child(-n+3) {background-color: $color-blue;}
+        #{$this}--4#{$this}--blue &:nth-child(-n+4) {background-color: $color-blue;}
     }
 }
