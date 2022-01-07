@@ -1,0 +1,14 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: rem(7.5px);
+    background-color: $color-grey-darker;
+    border-radius: $border-radius;
+    color: #fff;
+    border: none;
+    
+    &--end-turn {
+        width: $card-width;
+    }
+}
