@@ -20,7 +20,10 @@ $color-text       : #f1f7f9;
 $border: 1px solid var($color-border);
 
 // Border-Radius
-$border-radius: 4px;
+$border-radius-s: 2px;
+$border-radius-m: 4px;
+$border-radius-l: 7.5px;
+$border-radius: $border-radius-m;
 
 // Box-shadows:
 $box-shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.1),0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -34,7 +37,7 @@ $card-height: 165px;
 $card-border-radius: 7.5px;
 $card-box-shadow: $box-shadow-xs;
 $card-pool-gap: 20px;
-$battlefield-slot-gap: 30px;
+$battlefield-slot-gap: 25px;
 $sidebar-width: 205px;
 $header-height: 55px;
 $footer-height: 55px;
