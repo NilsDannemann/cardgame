@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Add flipped class
         setTimeout(() => {
             card.classList.toggle('card--flipped');
-        }, 500);
+        }, 100);
         // Add color class
         setTimeout(() => {
             if ( card.classList.contains('card--red') ) {
@@ -105,9 +105,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 card.classList.remove('card--blue');
                 card.classList.add('card--red');
             }
-        }, 550);
+        }, 150);
     }
-
 
 
     // Game State - Check all Cards

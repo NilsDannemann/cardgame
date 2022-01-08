@@ -5,6 +5,7 @@
     height: $card-height;
     perspective: 800px;
     position: relative;
+    z-index: 1;
     
     &:not(:last-child){
         margin-bottom: rem($card-pool-gap);
@@ -14,8 +15,6 @@
         flex: 1;
         transform-style: preserve-3d;
         will-change: transform;
-        border-radius: $card-border-radius;
-        box-shadow: $card-box-shadow;
         @include transition();
         
     }
@@ -43,6 +42,46 @@
         border-radius: $card-border-radius;
         box-shadow: $card-box-shadow;
         transform: rotateY(180deg); //For: flip effect
+    }
+
+    &__dmg {
+        height: 100%;
+        width: 100%;
+        border: 3px solid $color-black;
+        border-radius: $border-radius-m + 1;
+        backface-visibility: hidden;
+    }
+    [class*='__dmg-'] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $card-dmg-box-width;
+        height: $card-dmg-box-height;
+        color: #fff;
+        font-weight: $font-weight-medium;
+        background-color: $color-black;
+        border-radius: $border-radius-s;
+        position: absolute;
+    }
+    &__dmg-top {
+        right: calc(50% - #{$card-dmg-box-width / 2});
+        top: 0;
+        @include card-dmg-triangle($direction:up, $color: $color-red);
+    }
+    &__dmg-right {
+        top: calc(50% - #{$card-dmg-box-height / 2});
+        right: 0;
+        @include card-dmg-triangle($direction:right, $color: $color-red);
+    }
+    &__dmg-bottom {
+        right: calc(50% - #{$card-dmg-box-width / 2});
+        bottom: 0;
+        @include card-dmg-triangle($direction:down, $color: $color-red);
+    }
+    &__dmg-left {
+        top: calc(50% - #{$card-dmg-box-height / 2});
+        left: 0;
+        @include card-dmg-triangle($direction:left, $color: $color-red);
     }
 
     &--red {

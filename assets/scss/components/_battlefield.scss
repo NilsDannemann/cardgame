@@ -28,26 +28,26 @@
         // Slot 1
         &:nth-child(1) {
             &::before {
-                top: 50%; 
+                top: calc(50% - 4px); 
                 right: -#{rem($battlefield-slot-gap)};
                 width: rem($battlefield-slot-gap);
             }
             &::after {
                 bottom: -#{rem($battlefield-slot-gap)};
-                right: 50%; 
+                right: calc(50% - 4px); 
                 height: rem($battlefield-slot-gap);
             }
         }
         // Slot 2
         &:nth-child(2) {
             &::before {
-                top: 50%; 
+                top: calc(50% - 4px); 
                 right: -#{rem($battlefield-slot-gap)};
                 width: rem($battlefield-slot-gap);
             }
             &::after {
                 bottom: -#{rem($battlefield-slot-gap)};
-                right: 50%; 
+                right: calc(50% - 4px); 
                 height: rem($battlefield-slot-gap);
             }
         }
@@ -58,33 +58,33 @@
             }
             &::after {
                 bottom: -#{rem($battlefield-slot-gap)};
-                right: 50%; 
+                right: calc(50% - 4px); 
                 height: rem($battlefield-slot-gap);
             }
         }
         // Slot 4
         &:nth-child(4) {
             &::before {
-                top: 50%; 
+                top: calc(50% - 4px); 
                 right: -#{rem($battlefield-slot-gap)};
                 width: rem($battlefield-slot-gap);
             }
             &::after {
                 bottom: -#{rem($battlefield-slot-gap)};
-                right: 50%; 
+                right: calc(50% - 4px); 
                 height: rem($battlefield-slot-gap);
             }
         }
         // Slot 5
         &:nth-child(5) {
             &::before {
-                top: 50%; 
+                top: calc(50% - 4px); 
                 right: -#{rem($battlefield-slot-gap)};
                 width: rem($battlefield-slot-gap);
             }
             &::after {
                 bottom: -#{rem($battlefield-slot-gap)};
-                right: 50%; 
+                right: calc(50% - 4px); 
                 height: rem($battlefield-slot-gap);
             }
         }
@@ -95,14 +95,14 @@
             }
             &::after {
                 bottom: -#{rem($battlefield-slot-gap)};
-                right: 50%; 
+                right: calc(50% - 4px); 
                 height: rem($battlefield-slot-gap);
             }
         }
         // Slot 7
         &:nth-child(7) {
             &::before {
-                top: 50%; 
+                top: calc(50% - 4px); 
                 right: -#{rem($battlefield-slot-gap)};
                 width: rem($battlefield-slot-gap);
             }
@@ -113,7 +113,7 @@
         // Slot 8
         &:nth-child(8) {
             &::before {
-                top: 50%; 
+                top: calc(50% - 4px); 
                 right: -#{rem($battlefield-slot-gap)};
                 width: rem($battlefield-slot-gap);
             }

@@ -13,3 +13,35 @@
     transform: scale(1.15);
     box-shadow: $box-shadow-l;
 }
+
+// Card Element - Dmg Triangle Big
+@mixin card-dmg-triangle($direction: right, $color: $color-black) {
+    &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        
+        @if $direction == 'up' {
+            top: -10px;
+            border-width:  0 12.5px 10px 12.5px;
+            border-color: transparent transparent $color transparent;
+        }
+        @if $direction == 'right' {
+            right: -10px;
+            border-width: 12.5px 0 12.5px 10px;
+            border-color: transparent transparent transparent $color;
+        }
+        @if $direction == 'down' {
+            bottom: -10px;
+            border-width: 10px 12.5px 0 12.5px;
+            border-color: $color transparent transparent transparent;
+        }
+        @if $direction == 'left' {
+            left: -10px;
+            border-width: 12.5px 10px 12.5px 0;
+            border-color: transparent $color transparent transparent;
+        }
+    }
+}
