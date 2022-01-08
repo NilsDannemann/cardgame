@@ -55,8 +55,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: $card-dmg-box-width;
-        height: $card-dmg-box-height;
         color: #fff;
         font-weight: $font-weight-medium;
         background-color: $color-black;
@@ -64,25 +62,33 @@
         position: absolute;
     }
     &__dmg-top {
+        width: $card-dmg-box-width;
+        height: $card-dmg-box-height;
         right: calc(50% - #{$card-dmg-box-width / 2});
         top: 0;
         #{$this}--red & {@include card-dmg-triangle($direction:up, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:up, $color: $color-blue);}
     }
     &__dmg-right {
-        top: calc(50% - #{$card-dmg-box-height / 2});
+        height: $card-dmg-box-width;
+        width: $card-dmg-box-height;
+        top: calc(50% - #{$card-dmg-box-width / 2});
         right: 0;
         #{$this}--red & {@include card-dmg-triangle($direction:right, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:right, $color: $color-blue);}
     }
     &__dmg-bottom {
+        width: $card-dmg-box-width;
+        height: $card-dmg-box-height;
         right: calc(50% - #{$card-dmg-box-width / 2});
         bottom: 0;
         #{$this}--red & {@include card-dmg-triangle($direction:down, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:down, $color: $color-blue);}
     }
     &__dmg-left {
-        top: calc(50% - #{$card-dmg-box-height / 2});
+        height: $card-dmg-box-width;
+        width: $card-dmg-box-height;
+        top: calc(50% - #{$card-dmg-box-width / 2});
         left: 0;
         #{$this}--red & {@include card-dmg-triangle($direction:left, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:left, $color: $color-blue);}
