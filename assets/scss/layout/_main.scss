@@ -23,13 +23,13 @@
         &::-webkit-scrollbar {display: none;} scrollbar-width: none; -ms-overflow-style: none;
 
         &--left {
-            border-top-right-radius: calc(#{20px + $card-border-radius});
-            border-bottom-right-radius: calc(#{20px + $card-border-radius});
+            border-top-right-radius: $border-radius-m;
+            border-bottom-right-radius: $border-radius-m;
             background-color: $color-red-dark;
         }
         &--right {
-            border-top-left-radius: calc(#{20px + $card-border-radius});
-            border-bottom-left-radius: calc(#{20px + $card-border-radius});
+            border-top-left-radius: $border-radius-m;
+            border-bottom-left-radius: $border-radius-m;
             background-color: $color-blue-dark;
         }
     }
