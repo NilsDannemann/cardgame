@@ -7,11 +7,13 @@
 @mixin card-state-hover($color: false) {
     transform: scale(1.05);
     box-shadow: $box-shadow-m;
+    border-radius: $card-border-radius;
 }
 // Card State - Floating
 @mixin card-state-floating($color: false) {
     transform: scale(1.15);
     box-shadow: $box-shadow-l;
+    border-radius: $card-border-radius;
 }
 
 // Card Element - Dmg Triangle Big
