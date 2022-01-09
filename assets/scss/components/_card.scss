@@ -110,7 +110,8 @@
             width: $card-element-box-width;
             height: $card-element-box-height;
             border-radius: 100px;
-            background: no-repeat center center / 10px $color-grey-dark;
+            background: no-repeat center center / 10px $color-black;
+            border: 2px solid $color-grey-dark;
         }
     }
     &--fire {[class*='__dmg-element'] {background-image: url('../img/ui/icon-fire.svg');}}

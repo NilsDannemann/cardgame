@@ -167,15 +167,20 @@ document.addEventListener("DOMContentLoaded", function() {
     function initNewGame(boardA, boardB) {
         if(debugMode == 'state'){console.log('Init New Game');}
 
+        // Game Options
+        var useElements = true; //For later: start game with/without elements
+        var useAbilities = true; //For later: start game with/without abilities
+
         // Reset Player Boards
         boardA.scrollTop = 0;
         boardB.scrollTop = playerCardBoardB.scrollHeight;
     }
     
 
-
+    // ------------------------------------
     // For testing purposes (remove later)
-
+    // ------------------------------------
+    
     // Update Phase on click
     playerPhaseBlockA.addEventListener('click', function(){
         updatePhase(playerPhaseBlockA);
