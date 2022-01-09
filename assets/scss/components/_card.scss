@@ -67,6 +67,7 @@
         height: $card-dmg-box-height;
         right: calc(50% - #{$card-dmg-box-width / 2});
         top: 0;
+        @include card-dmg-triangle-inner($direction:down, $color: $color-black);
         #{$this}--red & {@include card-dmg-triangle($direction:up, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:up, $color: $color-blue);}
         [class*='__dmg-element'] {top: $card-dmg-box-height;}
@@ -76,6 +77,7 @@
         width: $card-dmg-box-height;
         top: calc(50% - #{$card-dmg-box-width / 2});
         right: 0;
+        @include card-dmg-triangle-inner($direction:left, $color: $color-black);
         #{$this}--red & {@include card-dmg-triangle($direction:right, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:right, $color: $color-blue);}
         [class*='__dmg-element'] {right: $card-dmg-box-height;}
@@ -85,6 +87,7 @@
         height: $card-dmg-box-height;
         right: calc(50% - #{$card-dmg-box-width / 2});
         bottom: 0;
+        @include card-dmg-triangle-inner($direction:up, $color: $color-black);
         #{$this}--red & {@include card-dmg-triangle($direction:down, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:down, $color: $color-blue);}
         [class*='__dmg-element'] {bottom: $card-dmg-box-height;}
@@ -94,6 +97,7 @@
         width: $card-dmg-box-height;
         top: calc(50% - #{$card-dmg-box-width / 2});
         left: 0;
+        @include card-dmg-triangle-inner($direction:right, $color: $color-black);
         #{$this}--red & {@include card-dmg-triangle($direction:left, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:left, $color: $color-blue);}
         [class*='__dmg-element'] {left: $card-dmg-box-height;}
@@ -102,17 +106,16 @@
         width: $card-element-box-width;
         height: $card-element-box-height;
         border-radius: 100px;
-        background-color: $color-black;
-
+        background: no-repeat center center / 12px $color-grey-dark;
     }
     &--fire {
-        [class*='__dmg-element'] {background: url('../img/ui/icon-fire.svg') no-repeat center center / 12px $color-black;}
+        [class*='__dmg-element'] {background-image: url('../img/ui/icon-fire.svg');}
     }
     &--water {
-        [class*='__dmg-element'] {background: url('../img/ui/icon-water.svg') no-repeat center center / 12px $color-black;}
+        [class*='__dmg-element'] {background-image: url('../img/ui/icon-water.svg');}
     }
     &--earth {
-        [class*='__dmg-element'] {background: url('../img/ui/icon-earth.svg') no-repeat center center / 12px $color-black;}
+        [class*='__dmg-element'] {background-image: url('../img/ui/icon-earth.svg');}
     }
 
     &--red {
