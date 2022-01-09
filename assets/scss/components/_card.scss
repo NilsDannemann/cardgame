@@ -136,7 +136,7 @@
     }
     
     &--dropped {
-        animation: cardDrop 1s cubic-bezier(0.445, 0.05, 0.55, 0.95) 0s normal;
+        animation: cardDrop 1s cubic-bezier(0.47, 0, 0.745, 0.715) 0s normal;
     }
     
     &--flipped {
