@@ -245,7 +245,6 @@ document.addEventListener("DOMContentLoaded", function() {
         card.addEventListener('click', function(){
             cardAttack(card);
             cardFlip(card);
-            allCards = document.querySelectorAll( '.card' );
         });
         if (!useElements) {
             card.classList.remove('card--fire'); 
