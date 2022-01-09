@@ -44,6 +44,7 @@
         transform: rotateY(180deg); //For: flip effect
     }
 
+    // Damage Pointer
     &__dmg {
         height: 100%;
         width: 100%;
@@ -68,6 +69,7 @@
         top: 0;
         #{$this}--red & {@include card-dmg-triangle($direction:up, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:up, $color: $color-blue);}
+        [class*='__dmg-element'] {top: $card-dmg-box-height;}
     }
     &__dmg-right {
         height: $card-dmg-box-width;
@@ -76,6 +78,7 @@
         right: 0;
         #{$this}--red & {@include card-dmg-triangle($direction:right, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:right, $color: $color-blue);}
+        [class*='__dmg-element'] {right: $card-dmg-box-height;}
     }
     &__dmg-bottom {
         width: $card-dmg-box-width;
@@ -84,6 +87,7 @@
         bottom: 0;
         #{$this}--red & {@include card-dmg-triangle($direction:down, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:down, $color: $color-blue);}
+        [class*='__dmg-element'] {bottom: $card-dmg-box-height;}
     }
     &__dmg-left {
         height: $card-dmg-box-width;
@@ -92,24 +96,45 @@
         left: 0;
         #{$this}--red & {@include card-dmg-triangle($direction:left, $color: $color-red);}
         #{$this}--blue & {@include card-dmg-triangle($direction:left, $color: $color-blue);}
+        [class*='__dmg-element'] {left: $card-dmg-box-height;}
+    }
+    [class*='__dmg-element'] {
+        width: $card-element-box-width;
+        height: $card-element-box-height;
+        border-radius: 100px;
+        background-color: $color-black;
+
+    }
+    &--fire {
+        [class*='__dmg-element'] {background: url('../img/ui/icon-fire.svg') no-repeat center center / 12px $color-black;}
+    }
+    &--water {
+        [class*='__dmg-element'] {background: url('../img/ui/icon-water.svg') no-repeat center center / 12px $color-black;}
+    }
+    &--earth {
+        [class*='__dmg-element'] {background: url('../img/ui/icon-earth.svg') no-repeat center center / 12px $color-black;}
     }
 
     &--red {
         #{$this}__front,
         #{$this}__back { border: 3px solid $color-red; }
     }
+    
     &--blue {
         #{$this}__front,
         #{$this}__back { border: 3px solid $color-blue; }
     }
+
     &--flying {
         cursor: grabbing;
         @include transition();
         @include card-state-floating();
     }
+    
     &--dropped {
 
     }
+    
     &--flipped {
         #{$this}__inner {
             transform: rotateY(180deg);
