@@ -5,10 +5,16 @@ document.addEventListener("DOMContentLoaded", function() {
     var useDebugMode;   // Options: 'phases', 'state' 
     var useElements;    // Later: use in initNewGame() to start game with/without elements
     var useAbilities;   // Later: use in initNewGame() to start game with/without abilities
-
-    // Init Drag & Drop Functionality
+    var playerDeckA = document.querySelector( '.deck.deck--red' );
+    var playerDeckB = document.querySelector( '.deck.deck--blue' );
     var playerCardPoolA = document.querySelector( '.main__aside--left .card-pool' );
     var playerCardPoolB = document.querySelector( '.main__aside--right .card-pool' );
+    var playerCardBoardA = document.querySelector( '.main__aside--left' );
+    var playerCardBoardB = document.querySelector( '.main__aside--right' );
+    var playerPhaseBlockA = document.querySelector( '.footer__aside--left .phase' );
+    var playerPhaseBlockB = document.querySelector( '.footer__aside--right .phase' );
+
+    // Init Drag & Drop Functionality
     var game = dragula([playerCardPoolA, playerCardPoolB].concat(Array.from(document.querySelectorAll('.battlefield__slot'))), dragulaOptions);
     var dragulaOptions = {
         isContainer: function (el) {
@@ -35,10 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     // Init New Game
-    var playerCardBoardA = document.querySelector( '.main__aside--left' );
-    var playerCardBoardB = document.querySelector( '.main__aside--right' );
-    var playerPhaseBlockA = document.querySelector( '.footer__aside--left .phase' );
-    var playerPhaseBlockB = document.querySelector( '.footer__aside--right .phase' );
     initNewGame(playerCardBoardA, playerCardBoardB, true, false, false);
 
     // Player Action - Drag Card
@@ -67,12 +69,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Card Draw
-    function cardDraw(player) {
+    function cardDraw(cardPool, color) {
         if(useDebugMode == 'phases'){console.log('Card Draw');}
 
-        // Later
-    }
+        // Create the new card
+        var card = document.createElement('div');
+        var cardElements = ['card--fire','card--water','card--earth'];
+        var cardDamageTotal = 20;
+        var cardDmgTop = getRandomNumberBetween(1, 9);
+        var cardDmgLeft = getRandomNumberBetween(1, 9);
+        var cardDmgBottom = getRandomNumberBetween(1, 9);
+        var cardDmgRight = getRandomNumberBetween(1, 9);
+        var cardLayout = '<div class="card__inner"> <div class="card__front"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmgTop + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right"> ' + cardDmgRight + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-bottom"> ' + cardDmgBottom + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-left"> ' + cardDmgLeft + ' <div class="card__dmg-element"></div></div> </div> </div> <div class="card__back"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmgTop + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right"> ' + cardDmgRight + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-bottom"> ' + cardDmgBottom + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-left"> ' + cardDmgLeft + '<div class="card__dmg-element"></div></div> </div> </div> </div>';
+        
+        // Add card base-class
+        card.classList.add('card');
+        
+        // Set card color
+        card.classList.add('card--' + color);
 
+        // Add card damage (random)
+        // console.log( getRandomNumberBetween(1, 9) );
+        
+        // Set card element (random)
+        if (useElements) {
+            card.classList.add(cardElements[Math.floor(Math.random()*cardElements.length)]);
+        }
+
+        // Add card content
+        card.innerHTML = cardLayout;
+
+        // Insert card to players cardpool
+        cardPool.appendChild(card);
+    }
+    
     // Card Drop
     function cardDrop(card, slot) {
         if(useDebugMode == 'phases'){console.log('Card Drop');}
@@ -174,17 +204,34 @@ document.addEventListener("DOMContentLoaded", function() {
         useElements = elements;
         useAbilities = abilities;
 
-        // Reset Player Boards
+        // Player A - Draw Cards
+        cardDraw(playerCardPoolA, 'red');
+        cardDraw(playerCardPoolA, 'red');
+        cardDraw(playerCardPoolA, 'red');
+        // Player A - Reset Board
         boardA.scrollTop = 0;
+        
+        // Player A - Draw Cards
+        cardDraw(playerCardPoolB, 'blue');
+        cardDraw(playerCardPoolB, 'blue');
+        cardDraw(playerCardPoolB, 'blue');
+        // Player B - Reset Board
         boardB.scrollTop = playerCardBoardB.scrollHeight;
     }
     
 
     // ------------------------------------
+    // Hepler Functions
+    // ------------------------------------
+    function getRandomNumberBetween(min, max){
+        return Math.floor(Math.random()*(max-min+1)+min);
+    }
+
+    // ------------------------------------
     // For testing purposes (remove later)
     // ------------------------------------
 
-    // Update Phase on click
+    // Update phase on click on phase block
     playerPhaseBlockA.addEventListener('click', function(){
         updatePhase(playerPhaseBlockA);
     });
@@ -192,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function() {
         updatePhase(playerPhaseBlockB);
     });
 
-    // Attack & Flip Card on click
+    // Attack & flip card on click on card
     var allCards = document.querySelectorAll( '.card' );
     allCards.forEach(card => {
         card.addEventListener('click', function(){
@@ -204,6 +251,14 @@ document.addEventListener("DOMContentLoaded", function() {
             card.classList.remove('card--water'); 
             card.classList.remove('card--earth'); 
         }
+    });
+
+    //Draw card on click on deck
+    playerDeckA.addEventListener('click', function(){
+        cardDraw(playerCardPoolA, 'red');
+    });
+    playerDeckB.addEventListener('click', function(){
+        cardDraw(playerCardPoolB, 'blue');
     });
 
 

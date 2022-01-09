@@ -6,6 +6,7 @@
     background-color: black;
     border-radius: $card-border-radius;
     box-shadow: $card-box-shadow;
+    cursor: pointer;
     
     &:not(:last-child){
         margin-bottom: rem($card-pool-gap);
