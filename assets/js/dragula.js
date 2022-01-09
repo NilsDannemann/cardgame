@@ -251,6 +251,7 @@ document.addEventListener("DOMContentLoaded", function() {
             card.classList.remove('card--water'); 
             card.classList.remove('card--earth'); 
         }
+        allCards = document.querySelectorAll( '.card' );
     });
 
     //Draw card on click on deck
