@@ -245,13 +245,13 @@ document.addEventListener("DOMContentLoaded", function() {
         card.addEventListener('click', function(){
             cardAttack(card);
             cardFlip(card);
+            allCards = document.querySelectorAll( '.card' );
         });
         if (!useElements) {
             card.classList.remove('card--fire'); 
             card.classList.remove('card--water'); 
             card.classList.remove('card--earth'); 
         }
-        allCards = document.querySelectorAll( '.card' );
     });
 
     //Draw card on click on deck
