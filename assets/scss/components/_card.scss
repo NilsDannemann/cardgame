@@ -113,15 +113,9 @@
             background: no-repeat center center / 10px $color-grey-dark;
         }
     }
-    &--fire {
-        [class*='__dmg-element'] {background-image: url('../img/ui/icon-fire.svg');}
-    }
-    &--water {
-        [class*='__dmg-element'] {background-image: url('../img/ui/icon-water.svg');}
-    }
-    &--earth {
-        [class*='__dmg-element'] {background-image: url('../img/ui/icon-earth.svg');}
-    }
+    &--fire {[class*='__dmg-element'] {background-image: url('../img/ui/icon-fire.svg');}}
+    &--water {[class*='__dmg-element'] {background-image: url('../img/ui/icon-water.svg');}}
+    &--earth {[class*='__dmg-element'] {background-image: url('../img/ui/icon-earth.svg');}}
 
     &--red {
         #{$this}__front,
