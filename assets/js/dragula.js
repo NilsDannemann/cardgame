@@ -13,12 +13,15 @@ document.addEventListener("DOMContentLoaded", function() {
     var playerCardBoardB = document.querySelector( '.main__aside--right' );
     var playerPhaseBlockA = document.querySelector( '.footer__aside--left .phase' );
     var playerPhaseBlockB = document.querySelector( '.footer__aside--right .phase' );
-
+    var battlefieldSlots = document.querySelectorAll('.battlefield__slot');
+    
+    
     // Init Drag & Drop Functionality
-    var game = dragula([playerCardPoolA, playerCardPoolB].concat(Array.from(document.querySelectorAll('.battlefield__slot'))), dragulaOptions);
+    var playerA = dragula([playerCardPoolA].concat(Array.from(battlefieldSlots)), dragulaOptions);
+    var playerB = dragula([playerCardPoolB].concat(Array.from(battlefieldSlots)), dragulaOptions);
     var dragulaOptions = {
         isContainer: function (el) {
-            return false;                  // only elements in game.containers will be taken into account
+            return false;                  // only elements in playerA.containers will be taken into account
         },
         moves: function (el, source, handle, sibling) {
             return true;                   // elements are always draggable by default
@@ -40,27 +43,29 @@ document.addEventListener("DOMContentLoaded", function() {
         slideFactorY: 0,                   // allows users to select the amount of movement on the Y axis before it is considered a drag instead of a click
     }
     
+
     // Init New Game
     initNewGame(playerCardBoardA, playerCardBoardB, true, false, false);
 
     // Player Action - Drag Card
-    game.on('drag', function(el, source) {
-        // console.log(el);
-        // console.log(source);
+    playerA.on('drag', function(el, source) {
+    });
+    playerB.on('drag', function(el, source) {
     });
 
     // Player Action - Drop Card
-    game.on('drop', function(el, target, source, sibling) {
-        // console.log(el);
-        // console.log(target);
-        // console.log(source);
-        // console.log(sibling);
-        // console.log(game.containers);
-
+    playerA.on('drop', function(el, target, source, sibling) {
         // Check if Card dropped in Slot
         if(target != source) {
             cardDrop(el, target);
-
+            checkCardStates();
+            checkSlotStates();
+        }
+    });
+    playerB.on('drop', function(el, target, source, sibling) {
+        // Check if Card dropped in Slot
+        if(target != source) {
+            cardDrop(el, target);
             checkCardStates();
             checkSlotStates();
         }
@@ -75,12 +80,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // Create the new card
         var card = document.createElement('div');
         var cardElements = ['card--fire','card--water','card--earth'];
-        var cardDamageTotal = 20;
-        var cardDmgTop = getRandomNumberBetween(1, 9);
-        var cardDmgLeft = getRandomNumberBetween(1, 9);
-        var cardDmgBottom = getRandomNumberBetween(1, 9);
-        var cardDmgRight = getRandomNumberBetween(1, 9);
-        var cardLayout = '<div class="card__inner"> <div class="card__front"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmgTop + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right"> ' + cardDmgRight + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-bottom"> ' + cardDmgBottom + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-left"> ' + cardDmgLeft + ' <div class="card__dmg-element"></div></div> </div> </div> <div class="card__back"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmgTop + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right"> ' + cardDmgRight + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-bottom"> ' + cardDmgBottom + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-left"> ' + cardDmgLeft + '<div class="card__dmg-element"></div></div> </div> </div> </div>';
+        var cardDmgTotal = 20;
+        var cardDmg = getRandomDamageNumbers(cardDmgTotal, 4, 9);
+        var cardLayout = '<div class="card__inner"> <div class="card__front"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmg[0] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right"> ' + cardDmg[1] + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-bottom"> ' + cardDmg[2] + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-left"> ' + cardDmg[3] + ' <div class="card__dmg-element"></div></div> </div> </div> <div class="card__back"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmg[0] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right"> ' + cardDmg[1] + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-bottom"> ' + cardDmg[2] + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-left"> ' + cardDmg[3] + '<div class="card__dmg-element"></div></div> </div> </div> </div>';
         
         // Add card base-class
         card.classList.add('card');
@@ -89,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function() {
         card.classList.add('card--' + color);
 
         // Add card damage (random)
-        // console.log( getRandomNumberBetween(1, 9) );
+        // console.log( getRandomDamageNumbers(20, 4, 9) );
         
         // Set card element (random)
         if (useElements) {
@@ -110,7 +112,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // Set card-state to dropped
         card.classList.add('card--dropped');
         // Remove filled Slot as possible Drop Target
-        game.containers.splice(game.containers.indexOf(slot), 1);
+        playerA.containers.splice(playerA.containers.indexOf(slot), 1);
+        playerB.containers.splice(playerB.containers.indexOf(slot), 1);
     }
 
     // Card Attack
@@ -216,16 +219,33 @@ document.addEventListener("DOMContentLoaded", function() {
         cardDraw(playerCardPoolB, 'blue');
         cardDraw(playerCardPoolB, 'blue');
         // Player B - Reset Board
-        boardB.scrollTop = playerCardBoardB.scrollHeight;
+        boardB.scrollTop = 0;
     }
     
 
     // ------------------------------------
     // Hepler Functions
     // ------------------------------------
-    function getRandomNumberBetween(min, max){
-        return Math.floor(Math.random()*(max-min+1)+min);
+    function getRandomDamageNumbers(total, parts, max) {
+        // var total = 20;
+        // var parts = 4;
+        // var max = 9;
+        var arr = new Array(parts);
+        var sum = 0;
+        do {
+            for (var i = 0; i < parts; i++) {
+                arr[i] = Math.random();
+            }
+            sum = arr.reduce((acc, val) => acc + val, 0);
+            var scale = (total - parts) / sum;
+            arr = arr.map(val => Math.min(max, Math.round(val * scale) + 1));
+            sum = arr.reduce((acc, val) => acc + val, 0);
+        } while (sum - total);
+        
+        return arr;
     }
+
+    
 
     // ------------------------------------
     // For testing purposes (remove later)
