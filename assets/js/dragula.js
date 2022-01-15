@@ -5,18 +5,17 @@ document.addEventListener("DOMContentLoaded", function() {
     var useDebugMode;   // Options: 'phases', 'state' 
     var useElements;    // Later: use in initNewGame() to start game with/without elements
     var useAbilities;   // Later: use in initNewGame() to start game with/without abilities
-    var playerDeckA = document.querySelector( '.deck.deck--red' );
-    var playerDeckB = document.querySelector( '.deck.deck--blue' );
-    var playerCardPoolA = document.querySelector( '.main__aside--left .card-pool' );
-    var playerCardPoolB = document.querySelector( '.main__aside--right .card-pool' );
+    var battlefield = document.querySelector('.battlefield');
+
+    // Init New Game
     var playerCardBoardA = document.querySelector( '.main__aside--left' );
     var playerCardBoardB = document.querySelector( '.main__aside--right' );
-    var playerPhaseBlockA = document.querySelector( '.footer__aside--left .phase' );
-    var playerPhaseBlockB = document.querySelector( '.footer__aside--right .phase' );
-    var battlefieldSlots = document.querySelectorAll('.battlefield__slot');
-    
+    var playerCardPoolA = document.querySelector( '.main__aside--left .card-pool' );
+    var playerCardPoolB = document.querySelector( '.main__aside--right .card-pool' );
+    initNewGame(playerCardBoardA, playerCardBoardB, '3x3', true, false, false);
     
     // Init Drag & Drop Functionality
+    var battlefieldSlots = document.querySelectorAll('.battlefield__slot');
     var playerA = dragula([playerCardPoolA].concat(Array.from(battlefieldSlots)), dragulaOptions);
     var playerB = dragula([playerCardPoolB].concat(Array.from(battlefieldSlots)), dragulaOptions);
     var dragulaOptions = {
@@ -42,10 +41,8 @@ document.addEventListener("DOMContentLoaded", function() {
         slideFactorX: 0,                   // allows users to select the amount of movement on the X axis before it is considered a drag instead of a click
         slideFactorY: 0,                   // allows users to select the amount of movement on the Y axis before it is considered a drag instead of a click
     }
-    
 
-    // Init New Game
-    initNewGame(playerCardBoardA, playerCardBoardB, true, false, false);
+
 
     // Player Action - Drag Card
     playerA.on('drag', function(el, source) {
@@ -144,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
+
     // Game State - Check all Cards
     function checkCardStates() {
         if(useDebugMode == 'state'){console.log('Check all Card States');}
@@ -177,36 +175,68 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     // Game State - Update Phase
-    function updatePhase($phaseBlock) {
+    function updatePhase(phaseBlock) {
 
         // Cycle through phases
-        if ( $phaseBlock.classList.contains('phase--1') ) {
-            $phaseBlock.classList.remove('phase--1');
-            $phaseBlock.classList.add('phase--2');
-        } else if( $phaseBlock.classList.contains('phase--2') ) {
-            $phaseBlock.classList.remove('phase--2');
-            $phaseBlock.classList.add('phase--3');
-        } else if( $phaseBlock.classList.contains('phase--3') ) {
-            $phaseBlock.classList.remove('phase--3');
-            $phaseBlock.classList.add('phase--4');
-        } else if( $phaseBlock.classList.contains('phase--4') ) {
-            $phaseBlock.classList.remove('phase--4');
-            $phaseBlock.classList.remove('phase--active');
+        if ( phaseBlock.classList.contains('phase--1') ) {
+            phaseBlock.classList.remove('phase--1');
+            phaseBlock.classList.add('phase--2');
+        } else if( phaseBlock.classList.contains('phase--2') ) {
+            phaseBlock.classList.remove('phase--2');
+            phaseBlock.classList.add('phase--3');
+        } else if( phaseBlock.classList.contains('phase--3') ) {
+            phaseBlock.classList.remove('phase--3');
+            phaseBlock.classList.add('phase--4');
+        } else if( phaseBlock.classList.contains('phase--4') ) {
+            phaseBlock.classList.remove('phase--4');
+            phaseBlock.classList.remove('phase--active');
         } else {
-            $phaseBlock.classList.add('phase--1');
-            $phaseBlock.classList.add('phase--active');
+            phaseBlock.classList.add('phase--1');
+            phaseBlock.classList.add('phase--active');
         }
     }
 
+
+
+    // Create Battlefield Slot
+    function createBattlefieldSlot(type) {
+        // Create the new battlefield slot
+        var slot = document.createElement('div');
+
+        // Add slot base-class
+        slot.classList.add('battlefield__slot');
+        
+        // Add slot optional classes
+        if(type == 'blocked') {
+            // implement later
+        }
+
+        // Insert slot to battlefield
+        battlefield.appendChild(slot);
+    }
+
+
+
     // Game State - Init new Game
-    function initNewGame(boardA, boardB, elements, abilities, debug) {
+    function initNewGame(boardA, boardB, map, elements, abilities, debug) {
         if(useDebugMode == 'state'){console.log('Init New Game');}
 
         // Set Game Options
         useDebugMode = debug;
         useElements = elements;
         useAbilities = abilities;
-
+        map = map;
+        
+        // Create Battlefield Map
+        if ( map == '3x3' ) {
+            battlefield.classList.add('battlefield--3x3');
+            for (var i = 1; i < 10; i++) createBattlefieldSlot(i);
+        }
+        if ( map == '4x4' ) {
+            battlefield.classList.add('battlefield--4x4');
+            for (var i = 1; i < 17; i++) createBattlefieldSlot(i);
+        }
+        
         // Player A - Draw Cards
         cardDraw(playerCardPoolA, 'red');
         cardDraw(playerCardPoolA, 'red');
@@ -252,6 +282,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // ------------------------------------
 
     // Update phase on click on phase block
+    var playerPhaseBlockA = document.querySelector( '.footer__aside--left .phase' );
+    var playerPhaseBlockB = document.querySelector( '.footer__aside--right .phase' );
     playerPhaseBlockA.addEventListener('click', function(){
         updatePhase(playerPhaseBlockA);
     });
@@ -274,6 +306,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     //Draw card on click on deck
+    var playerDeckA = document.querySelector( '.deck.deck--red' );
+    var playerDeckB = document.querySelector( '.deck.deck--blue' );
     playerDeckA.addEventListener('click', function(){
         cardDraw(playerCardPoolA, 'red');
     });

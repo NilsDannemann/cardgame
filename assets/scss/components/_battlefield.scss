@@ -2,9 +2,16 @@
 .battlefield {
     $this: &;
     display: grid;
-    grid-template-rows: $card-width $card-width $card-width;
-    grid-template-columns: $card-width $card-width $card-width;
     grid-gap: rem($battlefield-slot-gap);
+    
+    &--3x3 {
+        grid-template-rows: $card-width $card-width $card-width;
+        grid-template-columns: $card-width $card-width $card-width;
+    }
+    &--4x4 {
+        grid-template-rows: $card-width $card-width $card-width $card-width;
+        grid-template-columns: $card-width $card-width $card-width $card-width;
+    }
 
     &__slot {
         background-color: $color-grey-darker;
