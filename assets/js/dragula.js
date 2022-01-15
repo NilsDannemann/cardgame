@@ -2,9 +2,10 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     // Global Vars
-    var useDebugMode;   // Options: 'phases', 'state' 
-    var useElements;    // Later: use in initNewGame() to start game with/without elements
-    var useAbilities;   // Later: use in initNewGame() to start game with/without abilities
+    var useDebugMode;       // Options: 'phases', 'state' 
+    var useElements;        // Later: use in initNewGame() to start game with/without elements
+    var useAbilities;       // Later: use in initNewGame() to start game with/without abilities
+    var useMap = '3x3';     // '3x3', '4x4'
     var battlefield = document.querySelector('.battlefield');
 
     // Init New Game
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var playerCardBoardB = document.querySelector( '.main__aside--right' );
     var playerCardPoolA = document.querySelector( '.main__aside--left .card-pool' );
     var playerCardPoolB = document.querySelector( '.main__aside--right .card-pool' );
-    initNewGame(playerCardBoardA, playerCardBoardB, '3x3', true, false, false);
+    initNewGame(playerCardBoardA, playerCardBoardB, useMap, true, false, false);
     
     // Init Drag & Drop Functionality
     var battlefieldSlots = document.querySelectorAll('.battlefield__slot');
@@ -118,12 +119,24 @@ document.addEventListener("DOMContentLoaded", function() {
     // Card Attack
     function cardAttack(card, slot) {
         if(useDebugMode == 'phases'){console.log('Card Attack');}
+        
+        // Get current index of slot card was dropped in 
+        var currentSlotIndex = Array.prototype.indexOf.call(battlefieldSlots, slot);
 
-        console.log(card);
-        console.log(slot);
-        cardStats(card); //continue of function below
+        // Get slot targets to attack | Continue here -------------- not working in corner bottom left
+        var slotTargetTop = getSlotTargets(battlefieldSlots, currentSlotIndex)[0];
+        var slotTargetRight = getSlotTargets(battlefieldSlots, currentSlotIndex)[1];
+        var slotTargetBottom = getSlotTargets(battlefieldSlots, currentSlotIndex)[2];
+        var slotTargetLeft = getSlotTargets(battlefieldSlots, currentSlotIndex)[3];
+        
+        if (slotTargetTop) {slotTargetTop.classList.add('wewrertttzjhfgd');}
+        if (slotTargetRight) {slotTargetRight.classList.add('wewrertttzjhfgd');}
+        if (slotTargetBottom) {slotTargetBottom.classList.add('wewrertttzjhfgd');}
+        if (slotTargetLeft) {slotTargetLeft.classList.add('wewrertttzjhfgd');}
+
+        getCardStats(card); //continue of function below
     }
-
+    
     // Card Flip
     function cardFlip(card, slot) {
         if(useDebugMode == 'phases'){console.log('Card Flip');}
@@ -144,9 +157,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 150);
     }
 
-    //CONTINUE HERE --------------------------------------------------------
-    function cardStats(card) {
-        
+
+
+    // Helper Functions - Get Slot Targets
+    function getSlotTargets(battlefieldSlots, currentSlotIndex) {
+
+        var slotTargets = [];
+
+        slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
+        slotTargets.push(battlefieldSlots.item(currentSlotIndex + 1));
+        slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
+        slotTargets.push(battlefieldSlots.item(currentSlotIndex - 1));
+
+        return slotTargets;
+    }
+    
+    // Helper Functions - Get Card Stats
+    function getCardStats(card) {
+        // later
     }
 
 
@@ -234,14 +262,14 @@ document.addEventListener("DOMContentLoaded", function() {
         useDebugMode = debug;
         useElements = elements;
         useAbilities = abilities;
-        map = map;
+        useMap = map;
         
         // Create Battlefield Map
-        if ( map == '3x3' ) {
+        if ( useMap == '3x3' ) {
             battlefield.classList.add('battlefield--3x3');
             for (var i = 1; i < 10; i++) createBattlefieldSlot(i);
         }
-        if ( map == '4x4' ) {
+        if ( useMap == '4x4' ) {
             battlefield.classList.add('battlefield--4x4');
             for (var i = 1; i < 17; i++) createBattlefieldSlot(i);
         }
