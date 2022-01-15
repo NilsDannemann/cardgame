@@ -111,13 +111,17 @@ document.addEventListener("DOMContentLoaded", function() {
         // Remove filled Slot as possible Drop Target
         playerA.containers.splice(playerA.containers.indexOf(slot), 1);
         playerB.containers.splice(playerB.containers.indexOf(slot), 1);
+
+        cardAttack(card, slot)
     }
 
     // Card Attack
     function cardAttack(card, slot) {
         if(useDebugMode == 'phases'){console.log('Card Attack');}
 
-        // Later
+        console.log(card);
+        console.log(slot);
+        cardStats(card); //continue of function below
     }
 
     // Card Flip
@@ -138,6 +142,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 card.classList.add('card--red');
             }
         }, 150);
+    }
+
+    //CONTINUE HERE --------------------------------------------------------
+    function cardStats(card) {
+        
     }
 
 
