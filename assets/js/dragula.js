@@ -129,10 +129,10 @@ document.addEventListener("DOMContentLoaded", function() {
         var slotTargetBottom = getSlotTargets(battlefieldSlots, currentSlotIndex)[2];
         var slotTargetLeft = getSlotTargets(battlefieldSlots, currentSlotIndex)[3];
         
-        if (slotTargetTop) {slotTargetTop.classList.add('wewrertttzjhfgd');}
-        if (slotTargetRight) {slotTargetRight.classList.add('wewrertttzjhfgd');}
-        if (slotTargetBottom) {slotTargetBottom.classList.add('wewrertttzjhfgd');}
-        if (slotTargetLeft) {slotTargetLeft.classList.add('wewrertttzjhfgd');}
+        // if (slotTargetTop) {slotTargetTop.classList.add('wewrertttzjhfgd');}
+        // if (slotTargetRight) {slotTargetRight.classList.add('wewrertttzjhfgd');}
+        // if (slotTargetBottom) {slotTargetBottom.classList.add('wewrertttzjhfgd');}
+        // if (slotTargetLeft) {slotTargetLeft.classList.add('wewrertttzjhfgd');}
 
         getCardStats(card); //continue of function below
     }
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         return slotTargets;
     }
-    
+
     // Helper Functions - Get Card Stats
     function getCardStats(card) {
         // later
