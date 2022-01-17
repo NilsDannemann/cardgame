@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useDebugMode;       // Options: 'phases', 'state' 
     var useElements;        // Later: use in initNewGame() to start game with/without elements
     var useAbilities;       // Later: use in initNewGame() to start game with/without abilities
-    var useMap = '3x3';     // '3x3', '4x4'
+    var useMap = '3x3';     // '3x3', '3x4', '4x4'
     var battlefield = document.querySelector('.battlefield');
 
     // Init New Game
@@ -123,16 +123,16 @@ document.addEventListener("DOMContentLoaded", function() {
         // Get current index of slot card was dropped in 
         var currentSlotIndex = Array.prototype.indexOf.call(battlefieldSlots, slot);
 
-        // Get slot targets to attack | Continue here -------------- not working in corner bottom left
+        // Get slot targets to attack
         var slotTargetTop = getSlotTargets(battlefieldSlots, currentSlotIndex)[0];
         var slotTargetRight = getSlotTargets(battlefieldSlots, currentSlotIndex)[1];
         var slotTargetBottom = getSlotTargets(battlefieldSlots, currentSlotIndex)[2];
         var slotTargetLeft = getSlotTargets(battlefieldSlots, currentSlotIndex)[3];
         
-        // if (slotTargetTop) {slotTargetTop.classList.add('wewrertttzjhfgd');}
-        // if (slotTargetRight) {slotTargetRight.classList.add('wewrertttzjhfgd');}
-        // if (slotTargetBottom) {slotTargetBottom.classList.add('wewrertttzjhfgd');}
-        // if (slotTargetLeft) {slotTargetLeft.classList.add('wewrertttzjhfgd');}
+        if (slotTargetTop) {slotTargetTop.style.opacity = '0.5';}
+        if (slotTargetRight) {slotTargetRight.style.opacity = '0.5';}
+        if (slotTargetBottom) {slotTargetBottom.style.opacity = '0.5';}
+        if (slotTargetLeft) {slotTargetLeft.style.opacity = '0.5';}
 
         getCardStats(card); //continue of function below
     }
@@ -164,11 +164,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
         var slotTargets = [];
 
-        slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
-        slotTargets.push(battlefieldSlots.item(currentSlotIndex + 1));
-        slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
-        slotTargets.push(battlefieldSlots.item(currentSlotIndex - 1));
-
+        if ( useMap == '3x3' ) {
+            if (currentSlotIndex == 2) {
+                slotTargets.push(null);
+                slotTargets.push(null);
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 1));
+            } else if (currentSlotIndex == 3) {
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 1));
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
+                slotTargets.push(null);
+            } else if (currentSlotIndex == 5) {
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
+                slotTargets.push(null);
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 1));
+            } else if (currentSlotIndex == 6) {
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 1));
+                slotTargets.push(null);
+                slotTargets.push(null);
+            } else {
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 1));
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
+                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 1));
+            }
+        }
+        
         return slotTargets;
     }
 
@@ -268,6 +292,10 @@ document.addEventListener("DOMContentLoaded", function() {
         if ( useMap == '3x3' ) {
             battlefield.classList.add('battlefield--3x3');
             for (var i = 1; i < 10; i++) createBattlefieldSlot(i);
+        }
+        if ( useMap == '3x4' ) {
+            battlefield.classList.add('battlefield--3x4');
+            for (var i = 1; i < 13; i++) createBattlefieldSlot(i);
         }
         if ( useMap == '4x4' ) {
             battlefield.classList.add('battlefield--4x4');

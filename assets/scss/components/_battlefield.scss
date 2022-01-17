@@ -8,6 +8,10 @@
         grid-template-rows: $card-width $card-width $card-width;
         grid-template-columns: $card-width $card-width $card-width;
     }
+    &--3x4 {
+        grid-template-rows: $card-width $card-width $card-width;
+        grid-template-columns: $card-width $card-width $card-width $card-width;
+    }
     &--4x4 {
         grid-template-rows: $card-width $card-width $card-width $card-width;
         grid-template-columns: $card-width $card-width $card-width $card-width;
