@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var cardElements = ['card--fire','card--water','card--earth'];
         var cardDmgTotal = 20;
         var cardDmg = getRandomDamageNumbers(cardDmgTotal, 4, 9);
-        var cardLayout = '<div class="card__inner"> <div class="card__front"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmg[0] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right"> ' + cardDmg[1] + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-bottom"> ' + cardDmg[2] + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-left"> ' + cardDmg[3] + ' <div class="card__dmg-element"></div></div> </div> </div> <div class="card__back"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmg[0] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right"> ' + cardDmg[1] + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-bottom"> ' + cardDmg[2] + ' <div class="card__dmg-element"></div></div> <div class="card__dmg-left"> ' + cardDmg[3] + '<div class="card__dmg-element"></div></div> </div> </div> </div>';
+        var cardLayout = '<div class="card__inner"> <div class="card__front"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmg[0] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right">' + cardDmg[1] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-bottom">' + cardDmg[2] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-left">' + cardDmg[3] + '<div class="card__dmg-element"></div></div> </div> </div> <div class="card__back"> <div class="card__dmg"> <div class="card__dmg-top">' + cardDmg[0] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-right">' + cardDmg[1] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-bottom">' + cardDmg[2] + '<div class="card__dmg-element"></div></div> <div class="card__dmg-left">' + cardDmg[3] + '<div class="card__dmg-element"></div></div></div></div></div>';
         
         // Add card base-class
         card.classList.add('card');
@@ -120,21 +120,54 @@ document.addEventListener("DOMContentLoaded", function() {
     function cardAttack(card, slot) {
         if(useDebugMode == 'phases'){console.log('Card Attack');}
         
+        // Get current card stats
+        var cardStats = getCardStats(card);
+
         // Get current index of slot card was dropped in 
         var currentSlotIndex = Array.prototype.indexOf.call(battlefieldSlots, slot);
 
-        // Get slot targets to attack
-        var slotTargetTop = getSlotTargets(battlefieldSlots, currentSlotIndex)[0];
-        var slotTargetRight = getSlotTargets(battlefieldSlots, currentSlotIndex)[1];
-        var slotTargetBottom = getSlotTargets(battlefieldSlots, currentSlotIndex)[2];
-        var slotTargetLeft = getSlotTargets(battlefieldSlots, currentSlotIndex)[3];
+        // Get target slot to attack
+        var targetSlotTop = getTargetSlots(battlefieldSlots, currentSlotIndex)[0];
+        var targetSlotRight = getTargetSlots(battlefieldSlots, currentSlotIndex)[1];
+        var targetSlotBottom = getTargetSlots(battlefieldSlots, currentSlotIndex)[2];
+        var targetSlotLeft = getTargetSlots(battlefieldSlots, currentSlotIndex)[3];
         
-        if (slotTargetTop) {slotTargetTop.style.opacity = '0.5';}
-        if (slotTargetRight) {slotTargetRight.style.opacity = '0.5';}
-        if (slotTargetBottom) {slotTargetBottom.style.opacity = '0.5';}
-        if (slotTargetLeft) {slotTargetLeft.style.opacity = '0.5';}
+        // Get target cards
+        if (targetSlotTop) {var targetCardTop = targetSlotTop.querySelector('.card');}
+        if (targetSlotRight) {var targetCardRight = targetSlotRight.querySelector('.card');}
+        if (targetSlotBottom) {var targetCardBottom = targetSlotBottom.querySelector('.card');}
+        if (targetSlotLeft) {var targetCardLeft = targetSlotLeft.querySelector('.card');}
 
-        getCardStats(card); //continue of function below
+        // Attack target cards
+        if (targetCardTop) {
+            // attack
+            var targetCardTopStats = getCardStats(targetCardTop);
+            if (cardStats[0] >= targetCardTopStats[2]) {
+                cardFlip(targetCardTop);
+            }
+        }
+        if (targetCardRight) {
+            // attack
+            var targetCardRightStats = getCardStats(targetCardRight);
+            if (cardStats[1] >= targetCardRightStats[3]) {
+                cardFlip(targetCardRight);
+            }
+        }
+        if (targetCardBottom) {
+            // attack
+            var targetCardBottomStats = getCardStats(targetCardBottom);
+            if (cardStats[2] >= targetCardBottomStats[0]) {
+                cardFlip(targetCardBottom);
+            }
+        }
+        if (targetCardLeft) {
+            // attack
+            var targetCardLeftStats = getCardStats(targetCardLeft);
+            if (cardStats[3] >= targetCardLeftStats[1]) {
+                cardFlip(targetCardLeft);
+            }
+        }
+
     }
     
     // Card Flip
@@ -160,45 +193,54 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Helper Functions - Get Slot Targets
-    function getSlotTargets(battlefieldSlots, currentSlotIndex) {
+    function getTargetSlots(battlefieldSlots, currentSlotIndex) {
 
-        var slotTargets = [];
+        var targetSlots = [];
 
+        // Detemine slot targets on 3x3 map    
         if ( useMap == '3x3' ) {
             if (currentSlotIndex == 2) {
-                slotTargets.push(null);
-                slotTargets.push(null);
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 1));
+                targetSlots.push(null);
+                targetSlots.push(null);
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
             } else if (currentSlotIndex == 3) {
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 1));
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
-                slotTargets.push(null);
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
+                targetSlots.push(null);
             } else if (currentSlotIndex == 5) {
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
-                slotTargets.push(null);
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 1));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
+                targetSlots.push(null);
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
             } else if (currentSlotIndex == 6) {
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 1));
-                slotTargets.push(null);
-                slotTargets.push(null);
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
+                targetSlots.push(null);
+                targetSlots.push(null);
             } else {
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 3));
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 1));
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex + 3));
-                slotTargets.push(battlefieldSlots.item(currentSlotIndex - 1));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
+                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
             }
         }
-        
-        return slotTargets;
+
+        return targetSlots;
     }
 
     // Helper Functions - Get Card Stats
     function getCardStats(card) {
-        // later
+
+        var cardStats = [];
+
+        cardStats.push(card.querySelector('.card__dmg-top').innerText);
+        cardStats.push(card.querySelector('.card__dmg-right').innerText);
+        cardStats.push(card.querySelector('.card__dmg-bottom').innerText);
+        cardStats.push(card.querySelector('.card__dmg-left').innerText);
+
+        return cardStats;
     }
 
 
