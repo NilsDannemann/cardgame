@@ -2,10 +2,10 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     // Global Vars
-    var useDebugMode;       // Options: 'phases', 'state' 
-    var useElements;        // Later: use in initNewGame() to start game with/without elements
-    var useAbilities;       // Later: use in initNewGame() to start game with/without abilities
-    var useMap = '3x3';     // '3x3', '3x4', '4x4'
+    var useMap = '3x3';            // '3x3', '3x4', '4x4'
+    var useElements = true;        // Later: use in initNewGame() to start game with/without elements
+    var useAbilities = false;      // Later: use in initNewGame() to start game with/without abilities
+    var useDebugMode = false;      // Options: 'phases', 'state' 
     var battlefield = document.querySelector('.battlefield');
 
     // Init New Game
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var playerCardBoardB = document.querySelector( '.main__aside--right' );
     var playerCardPoolA = document.querySelector( '.main__aside--left .card-pool' );
     var playerCardPoolB = document.querySelector( '.main__aside--right .card-pool' );
-    initNewGame(playerCardBoardA, playerCardBoardB, useMap, true, false, false);
+    initNewGame(playerCardBoardA, playerCardBoardB, useMap, useElements, useAbilities, useDebugMode);
     
     // Init Drag & Drop Functionality
     var battlefieldSlots = document.querySelectorAll('.battlefield__slot');
@@ -88,9 +88,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // Set card color
         card.classList.add('card--' + color);
 
-        // Add card damage (random)
-        // console.log( getRandomDamageNumbers(20, 4, 9) );
-        
         // Set card element (random)
         if (useElements) {
             card.classList.add(cardElements[Math.floor(Math.random()*cardElements.length)]);
@@ -109,10 +106,12 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Set card-state to dropped
         card.classList.add('card--dropped');
+        
         // Remove filled Slot as possible Drop Target
         playerA.containers.splice(playerA.containers.indexOf(slot), 1);
         playerB.containers.splice(playerB.containers.indexOf(slot), 1);
 
+        // Init Combat
         cardAttack(card, slot)
     }
 
@@ -142,29 +141,45 @@ document.addEventListener("DOMContentLoaded", function() {
         if (targetCardTop) {
             // attack
             var targetCardTopStats = getCardStats(targetCardTop);
-            if (cardStats[0] >= targetCardTopStats[2]) {
-                cardFlip(targetCardTop);
+            // check color
+            if ( cardStats[5] != targetCardTopStats[5] ) {
+                // check power
+                if (cardStats[0] >= targetCardTopStats[2]) {
+                    cardFlip(targetCardTop);
+                }
             }
         }
         if (targetCardRight) {
             // attack
             var targetCardRightStats = getCardStats(targetCardRight);
-            if (cardStats[1] >= targetCardRightStats[3]) {
-                cardFlip(targetCardRight);
+            // check color
+            if ( cardStats[5] != targetCardRightStats[5] ) {
+                // check power
+                if (cardStats[1] >= targetCardRightStats[3]) {
+                    cardFlip(targetCardRight);
+                }
             }
         }
         if (targetCardBottom) {
             // attack
             var targetCardBottomStats = getCardStats(targetCardBottom);
-            if (cardStats[2] >= targetCardBottomStats[0]) {
-                cardFlip(targetCardBottom);
+            // check color
+            if ( cardStats[5] != targetCardBottomStats[5] ) {
+                // check power
+                if (cardStats[2] >= targetCardBottomStats[0]) {
+                    cardFlip(targetCardBottom);
+                }
             }
         }
         if (targetCardLeft) {
             // attack
             var targetCardLeftStats = getCardStats(targetCardLeft);
-            if (cardStats[3] >= targetCardLeftStats[1]) {
-                cardFlip(targetCardLeft);
+            // check color
+            if ( cardStats[5] != targetCardLeftStats[5] ) {
+                // check power
+                if (cardStats[3] >= targetCardLeftStats[1]) {
+                    cardFlip(targetCardLeft);
+                }
             }
         }
 
@@ -235,10 +250,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
         var cardStats = [];
 
+        // Get Card Damage
         cardStats.push(card.querySelector('.card__dmg-top').innerText);
         cardStats.push(card.querySelector('.card__dmg-right').innerText);
         cardStats.push(card.querySelector('.card__dmg-bottom').innerText);
         cardStats.push(card.querySelector('.card__dmg-left').innerText);
+
+        // Get Card Element 
+        if (card.classList.contains('card--fire')) {
+            cardStats.push('fire');
+        } else if (card.classList.contains('card--water')) {
+            cardStats.push('water');
+        } else if (card.classList.contains('card--earth')) {
+            cardStats.push('earth');
+        } else {
+            cardStats.push(null);
+        }
+
+        // Get Card Color
+        if (card.classList.contains('card--red')) {
+            cardStats.push('red');
+        } else {
+            cardStats.push('blue');
+        }
 
         return cardStats;
     }
@@ -249,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function checkCardStates() {
         if(useDebugMode == 'state'){console.log('Check all Card States');}
 
-        // Later
+        // Needed?
     }
 
     // Game State - Check all Slots
@@ -396,20 +430,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     playerPhaseBlockB.addEventListener('click', function(){
         updatePhase(playerPhaseBlockB);
-    });
-
-    // Attack & flip card on click on card
-    var allCards = document.querySelectorAll( '.card' );
-    allCards.forEach(card => {
-        card.addEventListener('click', function(){
-            cardAttack(card);
-            cardFlip(card);
-        });
-        if (!useElements) {
-            card.classList.remove('card--fire'); 
-            card.classList.remove('card--water'); 
-            card.classList.remove('card--earth'); 
-        }
     });
 
     //Draw card on click on deck
