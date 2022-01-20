@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     // Global Vars
-    var useMap = '3x3';            // '3x3', '3x4', '4x4'
+    var useMap = '3x4';            // '3x3', '3x4', '4x4' (height x width)
     var useElements = true;        // Later: use in initNewGame() to start game with/without elements
     var useAbilities = false;      // Later: use in initNewGame() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
@@ -126,10 +126,10 @@ document.addEventListener("DOMContentLoaded", function() {
         var currentSlotIndex = Array.prototype.indexOf.call(battlefieldSlots, slot);
 
         // Get target slot to attack
-        var targetSlotTop = getTargetSlots(battlefieldSlots, currentSlotIndex)[0];
-        var targetSlotRight = getTargetSlots(battlefieldSlots, currentSlotIndex)[1];
-        var targetSlotBottom = getTargetSlots(battlefieldSlots, currentSlotIndex)[2];
-        var targetSlotLeft = getTargetSlots(battlefieldSlots, currentSlotIndex)[3];
+        var targetSlotTop = getTargetSlots(battlefieldSlots, currentSlotIndex, useMap)[0];
+        var targetSlotRight = getTargetSlots(battlefieldSlots, currentSlotIndex, useMap)[1];
+        var targetSlotBottom = getTargetSlots(battlefieldSlots, currentSlotIndex, useMap)[2];
+        var targetSlotLeft = getTargetSlots(battlefieldSlots, currentSlotIndex, useMap)[3];
         
         // Get target cards
         if (targetSlotTop) {var targetCardTop = targetSlotTop.querySelector('.card');}
@@ -208,42 +208,46 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Helper Functions - Get Slot Targets
-    function getTargetSlots(battlefieldSlots, currentSlotIndex) {
+    function getTargetSlots(battlefieldSlots, currentSlotIndex, map) {
+        
+        let row = map.split('')[0]; // height of your grid
+        let col = map.split('')[2]; // width of your grid
 
-        var targetSlots = [];
+        let targetSlots = [];
+            
+        let topEdge = Math.floor( currentSlotIndex / col ) === 0; // Tile on top edge
+        let rightEdge = (currentSlotIndex+1) % col === 0; // Tile on right edge
+        let bottomEdge = Math.floor( currentSlotIndex / col ) === (row - 1); // Tile on bottom edge
+        let leftEdge = currentSlotIndex % col === 0; // Tile on very left edge
+    
+        
+        if (! topEdge) {
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex - col));
+        } else {
+            targetSlots.push(null);
+        }
 
-        // Detemine slot targets on 3x3 map    
-        if ( useMap == '3x3' ) {
-            if (currentSlotIndex == 2) {
-                targetSlots.push(null);
-                targetSlots.push(null);
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
-            } else if (currentSlotIndex == 3) {
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
-                targetSlots.push(null);
-            } else if (currentSlotIndex == 5) {
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
-                targetSlots.push(null);
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
-            } else if (currentSlotIndex == 6) {
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
-                targetSlots.push(null);
-                targetSlots.push(null);
-            } else {
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
-                targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
-            }
+        if (! rightEdge) {
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
+        } else {
+            targetSlots.push(null);
+        }
+
+        if (! bottomEdge) {
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex + col));
+        } else {
+            targetSlots.push(null);
+        }
+
+        if (! leftEdge) {
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
+        } else {
+            targetSlots.push(null);
         }
 
         return targetSlots;
     }
+    
 
     // Helper Functions - Get Card Stats
     function getCardStats(card) {
