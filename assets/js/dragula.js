@@ -349,25 +349,6 @@ document.addEventListener("DOMContentLoaded", function() {
         nextPlayer.classList.add('main__aside--active');
     }
 
-    // Create Battlefield Slot
-    function createBattlefieldSlot(type) {
-        // Create the new battlefield slot
-        var slot = document.createElement('div');
-
-        // Add slot base-class
-        slot.classList.add('battlefield__slot');
-        
-        // Add slot optional classes
-        if(type == 'blocked') {
-            // implement later
-        }
-
-        // Insert slot to battlefield
-        battlefield.appendChild(slot);
-    }
-
-
-
     // Game State - Init new Game
     function initNewGame(boardA, boardB, map, elements, abilities, debug) {
         if(useDebugMode == 'state'){console.log('Init New Game');}
@@ -379,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function() {
         useMap = map;
 
         // Set starting Player
-        startingPlayer = 'playerB';
+        startingPlayer = 'playerA';
 
         // Set Battlefield Map
         if ( useMap == '2x2' ) {
@@ -433,6 +414,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // ------------------------------------
     // Hepler Functions
     // ------------------------------------
+    // Create Random Damage Numbers
     function getRandomDamageNumbers(total, parts, max) {
         // var total = 20;
         // var parts = 4;
@@ -450,6 +432,23 @@ document.addEventListener("DOMContentLoaded", function() {
         } while (sum - total);
         
         return arr;
+    }
+
+    // Create Battlefield Slot
+    function createBattlefieldSlot(type) {
+        // Create the new battlefield slot
+        var slot = document.createElement('div');
+
+        // Add slot base-class
+        slot.classList.add('battlefield__slot');
+        
+        // Add slot optional classes
+        if(type == 'blocked') {
+            // implement later
+        }
+
+        // Insert slot to battlefield
+        battlefield.appendChild(slot);
     }
 
     
