@@ -1,4 +1,5 @@
 .main {
+    $this: &;
     display: flex;
     flex-direction: row;
     max-height: calc(100vh - #{$header-height + $footer-height});
@@ -35,6 +36,14 @@
             border-top-left-radius: $border-radius-m;
             border-bottom-left-radius: $border-radius-m;
             background-color: $color-blue-dark;
+        }
+
+        &:not(&--active) {
+            pointer-events: none;
+            background-color: $color-grey-darker;
+        }
+        &--active {
+            
         }
     }
 }

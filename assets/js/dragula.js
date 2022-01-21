@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
             cardDrop(el, target);
             checkCardStates();
             checkSlotStates();
+            changePlayer(playerCardBoardA, playerCardBoardB);
         }
     });
     playerB.on('drop', function(el, target, source, sibling) {
@@ -66,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
             cardDrop(el, target);
             checkCardStates();
             checkSlotStates();
+            changePlayer(playerCardBoardB, playerCardBoardA);
         }
     });
 
@@ -228,41 +230,29 @@ document.addEventListener("DOMContentLoaded", function() {
         if (isOnTopEdge) {
             targetSlots.push(null);
         } else {
-            console.log('pushedTop');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex - col));
         }
         
         if (isOnRightEdge) {
             targetSlots.push(null);
         } else {
-            console.log('pushedRight');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
         }
         
         if (isOnBottomEdge) {
             targetSlots.push(null);
         } else {
-            console.log('pushedBottom');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex + col));
         }
         
         if (isOnLeftEdge) {
             targetSlots.push(null);
         } else {
-            console.log('pushedLeft');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
         }
 
         return targetSlots;
     }
-    
-
-
-    Object.prototype.toType = function() {
-        return ({}).toString.call(this).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-      }
-
-
 
     // Helper Functions - Get Card Stats
     function getCardStats(card) {
@@ -352,7 +342,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    // Game State - Change Player
+    function changePlayer(currentPlayer, nextPlayer) {
 
+        currentPlayer.classList.remove('main__aside--active');
+        nextPlayer.classList.add('main__aside--active');
+    }
 
     // Create Battlefield Slot
     function createBattlefieldSlot(type) {
@@ -383,7 +378,10 @@ document.addEventListener("DOMContentLoaded", function() {
         useAbilities = abilities;
         useMap = map;
 
-        // Create Battlefield Map
+        // Set starting Player
+        startingPlayer = 'playerB';
+
+        // Set Battlefield Map
         if ( useMap == '2x2' ) {
             battlefield.classList.add('battlefield--2x2');
             for (var i = 1; i < 5; i++) createBattlefieldSlot(i);
@@ -422,6 +420,13 @@ document.addEventListener("DOMContentLoaded", function() {
         cardDraw(playerCardPoolB, 'blue');
         // Player B - Reset Board
         boardB.scrollTop = 0;
+
+        // Set starting Player
+        if (startingPlayer == 'playerA') {
+            boardA.classList.add('main__aside--active');
+        } else {
+            boardB.classList.add('main__aside--active');
+        }
     }
     
 
