@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     // Global Vars
-    var useMap = '3x3';            // '3x3', '3x4', '4x4' (height x width)
+    var useMap = '4x3';            // '3x3', '4x3', '4x4' (cols x rows)
     var useElements = true;        // Later: use in initNewGame() to start game with/without elements
     var useAbilities = false;      // Later: use in initNewGame() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
@@ -210,74 +210,59 @@ document.addEventListener("DOMContentLoaded", function() {
     // Helper Functions - Get Slot Targets
     function getTargetSlots(battlefieldSlots, currentSlotIndex, map) {
         
-        // Detemine slot targets on 3x3 map 
-        // let targetSlots = [];   
-        // if ( useMap == '3x3' ) {
-        // if (currentSlotIndex == 2) {
-        //     targetSlots.push(null);
-        //     targetSlots.push(null);
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
-        // } else if (currentSlotIndex == 3) {
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
-        //     targetSlots.push(null);
-        // } else if (currentSlotIndex == 5) {
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
-        //     targetSlots.push(null);
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
-        // } else if (currentSlotIndex == 6) {
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
-        //     targetSlots.push(null);
-        //     targetSlots.push(null);
-        // } else {
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex - 3));
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex + 3));
-        //     targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
-        // }
+        var targetSlots = [];
+        var col = map.split('')[0]; // cols of grid
+        var row = map.split('')[2]; // rows of grid
         
-        let row = map.split('')[0]; // height of your grid
-        let col = map.split('')[2]; // width of your grid
-
-        let targetSlots = [];
-            
-        let topEdge = Math.floor( currentSlotIndex / col ) === 0; // Tile on top edge
-        let rightEdge = (currentSlotIndex+1) % col === 0; // Tile on right edge
-        let bottomEdge = Math.floor( currentSlotIndex / col ) === (row - 1); // Tile on bottom edge
-        let leftEdge = currentSlotIndex % col === 0; // Tile on very left edge
-    
+        // Convert formats
+        col = parseInt(col, 10);
+        row = parseInt(row, 10);
+        currentSlotIndex = parseInt(currentSlotIndex, 10);
         
-        if (! topEdge) {
+        // Check for grid edges
+        var topEdge = Math.floor(currentSlotIndex / col) === 0; // Tile on top edge
+        var rightEdge = (currentSlotIndex+1) % col === 0; // Tile on right edge
+        var bottomEdge = Math.floor( currentSlotIndex / col ) === (row - 1); // Tile on bottom edge
+        var leftEdge = currentSlotIndex % col === 0; // Tile on very left edge
+        
+        if (topEdge) {
+            targetSlots.push(null);
+        } else {
+            console.log('pushedTop');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex - col));
-        } else {
-            targetSlots.push(null);
         }
-
-        if (! rightEdge) {
+        
+        if (rightEdge) {
+            targetSlots.push(null);
+        } else {
+            console.log('pushedRight');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
-        } else {
-            targetSlots.push(null);
         }
-
-        if (! bottomEdge) {
+        
+        if (bottomEdge) {
+            targetSlots.push(null);
+        } else {
+            console.log('pushedBottom');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex + col));
-        } else {
-            targetSlots.push(null);
         }
-
-        if (! leftEdge) {
-            targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
-        } else {
+        
+        if (leftEdge) {
             targetSlots.push(null);
+        } else {
+            console.log('pushedLeft');
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
         }
 
         return targetSlots;
     }
     
+
+
+    Object.prototype.toType = function() {
+        return ({}).toString.call(this).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+      }
+
+
 
     // Helper Functions - Get Card Stats
     function getCardStats(card) {
@@ -403,8 +388,8 @@ document.addEventListener("DOMContentLoaded", function() {
             battlefield.classList.add('battlefield--3x3');
             for (var i = 1; i < 10; i++) createBattlefieldSlot(i);
         }
-        if ( useMap == '3x4' ) {
-            battlefield.classList.add('battlefield--3x4');
+        if ( useMap == '4x3' ) {
+            battlefield.classList.add('battlefield--4x3');
             for (var i = 1; i < 13; i++) createBattlefieldSlot(i);
         }
         if ( useMap == '4x4' ) {
