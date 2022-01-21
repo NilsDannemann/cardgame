@@ -208,45 +208,45 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // Helper Functions - Get Slot Targets
-    function getTargetSlots(battlefieldSlots, currentSlotIndex, map) {
+    function getTargetSlots(battlefieldSlots, currentSlotIndex, currentMap) {
         
         var targetSlots = [];
-        var col = map.split('')[0]; // cols of grid
-        var row = map.split('')[2]; // rows of grid
+        var col = currentMap.split('')[0]; // cols of grid
+        var row = currentMap.split('')[2]; // rows of grid
         
-        // Convert formats
+        // Convert formats for calculations
         col = parseInt(col, 10);
         row = parseInt(row, 10);
         currentSlotIndex = parseInt(currentSlotIndex, 10);
         
         // Check for grid edges
-        var topEdge = Math.floor(currentSlotIndex / col) === 0; // Tile on top edge
-        var rightEdge = (currentSlotIndex+1) % col === 0; // Tile on right edge
-        var bottomEdge = Math.floor( currentSlotIndex / col ) === (row - 1); // Tile on bottom edge
-        var leftEdge = currentSlotIndex % col === 0; // Tile on very left edge
+        var isOnTopEdge = Math.floor(currentSlotIndex / col) === 0; // Slot on top edge
+        var isOnRightEdge = (currentSlotIndex+1) % col === 0; // Slot on right edge
+        var isOnBottomEdge = Math.floor( currentSlotIndex / col ) === (row - 1); // Slot on bottom edge
+        var isOnLeftEdge = currentSlotIndex % col === 0; // Slot on very left edge
         
-        if (topEdge) {
+        if (isOnTopEdge) {
             targetSlots.push(null);
         } else {
             console.log('pushedTop');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex - col));
         }
         
-        if (rightEdge) {
+        if (isOnRightEdge) {
             targetSlots.push(null);
         } else {
             console.log('pushedRight');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
         }
         
-        if (bottomEdge) {
+        if (isOnBottomEdge) {
             targetSlots.push(null);
         } else {
             console.log('pushedBottom');
             targetSlots.push(battlefieldSlots.item(currentSlotIndex + col));
         }
         
-        if (leftEdge) {
+        if (isOnLeftEdge) {
             targetSlots.push(null);
         } else {
             console.log('pushedLeft');
