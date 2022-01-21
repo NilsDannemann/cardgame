@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     // Global Vars
-    var useMap = '4x3';            // '3x3', '4x3', '4x4' (cols x rows)
+    var useMap = '4x3';            // '2x2', '3x2', '4x2', '3x3', '4x3', '4x4' (cols x rows)
     var useElements = true;        // Later: use in initNewGame() to start game with/without elements
     var useAbilities = false;      // Later: use in initNewGame() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
@@ -382,8 +382,20 @@ document.addEventListener("DOMContentLoaded", function() {
         useElements = elements;
         useAbilities = abilities;
         useMap = map;
-        
+
         // Create Battlefield Map
+        if ( useMap == '2x2' ) {
+            battlefield.classList.add('battlefield--2x2');
+            for (var i = 1; i < 5; i++) createBattlefieldSlot(i);
+        }
+        if ( useMap == '3x2' ) {
+            battlefield.classList.add('battlefield--3x2');
+            for (var i = 1; i < 7; i++) createBattlefieldSlot(i);
+        }
+        if ( useMap == '4x2' ) {
+            battlefield.classList.add('battlefield--4x2');
+            for (var i = 1; i < 9; i++) createBattlefieldSlot(i);
+        }
         if ( useMap == '3x3' ) {
             battlefield.classList.add('battlefield--3x3');
             for (var i = 1; i < 10; i++) createBattlefieldSlot(i);

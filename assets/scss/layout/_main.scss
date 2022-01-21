@@ -11,6 +11,10 @@
         justify-content: center;
         flex: 1;
         padding: rem(30px);
+        
+        // Scrollable + Hide Scrollbar
+        overflow: scroll;
+        &::-webkit-scrollbar {display: none;} scrollbar-width: none; -ms-overflow-style: none;
     }
 
     &__aside {

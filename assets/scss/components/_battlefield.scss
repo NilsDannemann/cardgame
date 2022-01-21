@@ -1,9 +1,21 @@
-
 .battlefield {
     $this: &;
     display: grid;
     grid-gap: rem($battlefield-slot-gap);
+    overflow: hidden;
     
+    &--2x2 {
+        grid-template-rows: $card-width $card-width;
+        grid-template-columns: $card-width $card-width;
+    }
+    &--3x2 {
+        grid-template-rows: $card-width $card-width;
+        grid-template-columns: $card-width $card-width $card-width;
+    }
+    &--4x2 {
+        grid-template-rows: $card-width $card-width;
+        grid-template-columns: $card-width $card-width $card-width $card-width;
+    }
     &--3x3 {
         grid-template-rows: $card-width $card-width $card-width;
         grid-template-columns: $card-width $card-width $card-width;
@@ -31,6 +43,16 @@
             width: rem(7.5px);
             height: rem(7.5px);
         }
+        &::before {
+            top: calc(50% - 4px); 
+            right: -#{rem($battlefield-slot-gap)};
+            width: $card-width + ($battlefield-slot-gap * 2);
+        }
+        &::after {
+            bottom: -#{rem($battlefield-slot-gap)};
+            right: calc(50% - 4px); 
+            height: $card-height + ($battlefield-slot-gap * 2);
+        }
 
         &--filled {
         }
@@ -39,113 +61,6 @@
         &--blue {
         }
 
-        // Slot 1
-        &:nth-child(1) {
-            &::before {
-                top: calc(50% - 4px); 
-                right: -#{rem($battlefield-slot-gap)};
-                width: rem($battlefield-slot-gap);
-            }
-            &::after {
-                bottom: -#{rem($battlefield-slot-gap)};
-                right: calc(50% - 4px); 
-                height: rem($battlefield-slot-gap);
-            }
-        }
-        // Slot 2
-        &:nth-child(2) {
-            &::before {
-                top: calc(50% - 4px); 
-                right: -#{rem($battlefield-slot-gap)};
-                width: rem($battlefield-slot-gap);
-            }
-            &::after {
-                bottom: -#{rem($battlefield-slot-gap)};
-                right: calc(50% - 4px); 
-                height: rem($battlefield-slot-gap);
-            }
-        }
-        // Slot 3
-        &:nth-child(3) {
-            &::before {
-                display: none;
-            }
-            &::after {
-                bottom: -#{rem($battlefield-slot-gap)};
-                right: calc(50% - 4px); 
-                height: rem($battlefield-slot-gap);
-            }
-        }
-        // Slot 4
-        &:nth-child(4) {
-            &::before {
-                top: calc(50% - 4px); 
-                right: -#{rem($battlefield-slot-gap)};
-                width: rem($battlefield-slot-gap);
-            }
-            &::after {
-                bottom: -#{rem($battlefield-slot-gap)};
-                right: calc(50% - 4px); 
-                height: rem($battlefield-slot-gap);
-            }
-        }
-        // Slot 5
-        &:nth-child(5) {
-            &::before {
-                top: calc(50% - 4px); 
-                right: -#{rem($battlefield-slot-gap)};
-                width: rem($battlefield-slot-gap);
-            }
-            &::after {
-                bottom: -#{rem($battlefield-slot-gap)};
-                right: calc(50% - 4px); 
-                height: rem($battlefield-slot-gap);
-            }
-        }
-        // Slot 6
-        &:nth-child(6) {
-            &::before {
-                display: none;
-            }
-            &::after {
-                bottom: -#{rem($battlefield-slot-gap)};
-                right: calc(50% - 4px); 
-                height: rem($battlefield-slot-gap);
-            }
-        }
-        // Slot 7
-        &:nth-child(7) {
-            &::before {
-                top: calc(50% - 4px); 
-                right: -#{rem($battlefield-slot-gap)};
-                width: rem($battlefield-slot-gap);
-            }
-            &::after {
-                display: none;
-            }
-        }
-        // Slot 8
-        &:nth-child(8) {
-            &::before {
-                top: calc(50% - 4px); 
-                right: -#{rem($battlefield-slot-gap)};
-                width: rem($battlefield-slot-gap);
-            }
-            &::after {
-                display: none;
-            }
-        }
-        // Slot 9
-        &:nth-child(9) {
-            &::before {
-                display: none;
-            }
-            &::after {
-                display: none;
-            }
-        }
-    
-    
     }
 
 }
