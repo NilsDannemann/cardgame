@@ -17,7 +17,6 @@
         transform-style: preserve-3d;
         will-change: transform;
         @include transition();
-        
     }
     &__front {
         position: absolute;
