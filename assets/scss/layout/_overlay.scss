@@ -1,0 +1,58 @@
+.overlay {
+    $this: &;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    overflow: hidden;
+    z-index: 10;
+    
+    &__coinslot {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: calc(50vh - 50px);
+        box-shadow: 0px 0px 0px 4px black;
+        background-color: black;
+        z-index: 10;
+        border-radius: 100px;
+    }
+
+    &__left {
+        position: absolute;
+        top: 0; right: 50vw; bottom: 0; left: 0;
+        background-color: $color-black;
+        border-right: 2px solid black;
+        overflow: hidden;
+        @include transition();
+
+        #{$this}__coinslot {
+            left: calc(50vw - 50px); 
+        }
+    }
+
+    &__right {
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 50vw;
+        background-color: $color-black;
+        border-left: 2px solid black;
+        overflow: hidden;
+        @include transition();
+        
+        #{$this}__coinslot {
+            right: calc(50vw - 50px); 
+        }
+    }
+
+    &--hidden {
+
+        #{$this}__left {
+            transform: translateX(-50vw);
+        }
+        #{$this}__right {
+            transform: translateX(50vw);
+        }
+    }
+}

@@ -254,48 +254,18 @@ document.addEventListener("DOMContentLoaded", function() {
         return targetSlots;
     }
 
-    // Helper Functions - Get Card Stats
-    function getCardStats(card) {
-
-        var cardStats = [];
-
-        // Get Card Damage
-        cardStats.push(card.querySelector('.card__dmg-top').innerText);
-        cardStats.push(card.querySelector('.card__dmg-right').innerText);
-        cardStats.push(card.querySelector('.card__dmg-bottom').innerText);
-        cardStats.push(card.querySelector('.card__dmg-left').innerText);
-
-        // Get Card Element 
-        if (card.classList.contains('card--fire')) {
-            cardStats.push('fire');
-        } else if (card.classList.contains('card--water')) {
-            cardStats.push('water');
-        } else if (card.classList.contains('card--earth')) {
-            cardStats.push('earth');
-        } else {
-            cardStats.push(null);
-        }
-
-        // Get Card Color
-        if (card.classList.contains('card--red')) {
-            cardStats.push('red');
-        } else {
-            cardStats.push('blue');
-        }
-
-        return cardStats;
-    }
+    
 
 
 
-    // Game State - Check all Cards
+    // Game - Check all Cards
     function checkCardStates() {
         if(useDebugMode == 'state'){console.log('Check all Card States');}
 
         // Needed?
     }
 
-    // Game State - Check all Slots
+    // Game - Check all Slots
     function checkSlotStates() {
         if(useDebugMode == 'state'){console.log('Check all Slot States');}
 
@@ -320,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // Game State - Update Phase
+    // Game - Update Phase
     function updatePhase(phaseBlock) {
 
         // Cycle through phases
@@ -342,14 +312,74 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Game State - Change Player
+    // Game - Change Player
     function changePlayer(currentPlayer, nextPlayer) {
 
         currentPlayer.classList.remove('main__aside--active');
         nextPlayer.classList.add('main__aside--active');
     }
 
-    // Game State - Init new Game
+    // Game - Do Cointoss
+    function doCointoss() {
+   
+        var coin = document.querySelector('.coin');
+        var overlay = document.querySelector('.overlay');
+        var cointossResult = Math.random();
+
+        coin.classList.remove('heads');
+        coin.classList.remove('tails');
+
+        // Execute toincoss
+        setTimeout(function(){
+            if(cointossResult <= 0.5) {
+                coin.classList.add('heads');
+            } else {
+                coin.classList.add('tails');
+            }
+        }, 100);
+
+        // Remove coin
+        setTimeout(function(){
+            coin.classList.add('hidden');
+        }, 3000);
+
+        // Fade-out overlay
+        setTimeout(function(){
+            overlay.classList.add('overlay--hidden');
+        }, 3500);
+        
+        // Remove overlay
+        setTimeout(function(){
+            overlay.remove();
+        }, 3750);
+
+        // Set starting player
+        if(cointossResult <= 0.5) {
+            return 'playerA';
+        } else {
+            return 'playerB';
+        }
+        
+    }
+
+    // Game - Create Battlefield Slot
+    function createBattlefieldSlot(type) {
+        // Create the new battlefield slot
+        var slot = document.createElement('div');
+
+        // Add slot base-class
+        slot.classList.add('battlefield__slot');
+        
+        // Add slot optional classes
+        if(type == 'blocked') {
+            // implement later
+        }
+
+        // Insert slot to battlefield
+        battlefield.appendChild(slot);
+    }
+
+    // Game - Init new Game
     function initNewGame(boardA, boardB, map, elements, abilities, debug) {
         if(useDebugMode == 'state'){console.log('Init New Game');}
 
@@ -360,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function() {
         useMap = map;
 
         // Set starting Player
-        startingPlayer = 'playerA';
+        startingPlayer = doCointoss();
 
         // Set Battlefield Map
         if ( useMap == '2x2' ) {
@@ -410,6 +440,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
+    
 
     // ------------------------------------
     // Hepler Functions
@@ -434,21 +465,36 @@ document.addEventListener("DOMContentLoaded", function() {
         return arr;
     }
 
-    // Create Battlefield Slot
-    function createBattlefieldSlot(type) {
-        // Create the new battlefield slot
-        var slot = document.createElement('div');
+    // Get Card Stats
+    function getCardStats(card) {
 
-        // Add slot base-class
-        slot.classList.add('battlefield__slot');
-        
-        // Add slot optional classes
-        if(type == 'blocked') {
-            // implement later
+        var cardStats = [];
+
+        // Get Card Damage
+        cardStats.push(card.querySelector('.card__dmg-top').innerText);
+        cardStats.push(card.querySelector('.card__dmg-right').innerText);
+        cardStats.push(card.querySelector('.card__dmg-bottom').innerText);
+        cardStats.push(card.querySelector('.card__dmg-left').innerText);
+
+        // Get Card Element 
+        if (card.classList.contains('card--fire')) {
+            cardStats.push('fire');
+        } else if (card.classList.contains('card--water')) {
+            cardStats.push('water');
+        } else if (card.classList.contains('card--earth')) {
+            cardStats.push('earth');
+        } else {
+            cardStats.push(null);
         }
 
-        // Insert slot to battlefield
-        battlefield.appendChild(slot);
+        // Get Card Color
+        if (card.classList.contains('card--red')) {
+            cardStats.push('red');
+        } else {
+            cardStats.push('blue');
+        }
+
+        return cardStats;
     }
 
     
