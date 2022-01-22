@@ -3,8 +3,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Global Vars
     var useMap = '4x3';            // '2x2', '3x2', '4x2', '3x3', '4x3', '4x4' (cols x rows)
-    var useElements = true;        // Later: use in initNewGame() to start game with/without elements
-    var useAbilities = false;      // Later: use in initNewGame() to start game with/without abilities
+    var useElements = true;        // Later: use in initNewRound() to start game with/without elements
+    var useAbilities = false;      // Later: use in initNewRound() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
     var battlefield = document.querySelector('.battlefield');
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var playerCardBoardB = document.querySelector( '.main__aside--right' );
     var playerCardPoolA = document.querySelector( '.main__aside--left .card-pool' );
     var playerCardPoolB = document.querySelector( '.main__aside--right .card-pool' );
-    initNewGame(playerCardBoardA, playerCardBoardB, useMap, useElements, useAbilities, useDebugMode);
+    initNewRound(playerCardBoardA, playerCardBoardB, useMap, useElements, useAbilities, useDebugMode);
     
     // Init Drag & Drop Functionality
     var battlefieldSlots = document.querySelectorAll('.battlefield__slot');
@@ -209,55 +209,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-    // Helper Functions - Get Slot Targets
-    function getTargetSlots(battlefieldSlots, currentSlotIndex, currentMap) {
-        
-        var targetSlots = [];
-        var col = currentMap.split('')[0]; // cols of grid
-        var row = currentMap.split('')[2]; // rows of grid
-        
-        // Convert formats for calculations
-        col = parseInt(col, 10);
-        row = parseInt(row, 10);
-        currentSlotIndex = parseInt(currentSlotIndex, 10);
-        
-        // Check for grid edges
-        var isOnTopEdge = Math.floor(currentSlotIndex / col) === 0; // Slot on top edge
-        var isOnRightEdge = (currentSlotIndex+1) % col === 0; // Slot on right edge
-        var isOnBottomEdge = Math.floor( currentSlotIndex / col ) === (row - 1); // Slot on bottom edge
-        var isOnLeftEdge = currentSlotIndex % col === 0; // Slot on very left edge
-        
-        if (isOnTopEdge) {
-            targetSlots.push(null);
-        } else {
-            targetSlots.push(battlefieldSlots.item(currentSlotIndex - col));
-        }
-        
-        if (isOnRightEdge) {
-            targetSlots.push(null);
-        } else {
-            targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
-        }
-        
-        if (isOnBottomEdge) {
-            targetSlots.push(null);
-        } else {
-            targetSlots.push(battlefieldSlots.item(currentSlotIndex + col));
-        }
-        
-        if (isOnLeftEdge) {
-            targetSlots.push(null);
-        } else {
-            targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
-        }
-
-        return targetSlots;
-    }
-
-    
-
-
-
     // Game - Check all Cards
     function checkCardStates() {
         if(useDebugMode == 'state'){console.log('Check all Card States');}
@@ -319,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function() {
         nextPlayer.classList.add('main__aside--active');
     }
 
-    // Game - Do Cointoss
+    // Game - Cointoss
     function doCointoss() {
    
         var coin = document.querySelector('.coin');
@@ -379,8 +330,8 @@ document.addEventListener("DOMContentLoaded", function() {
         battlefield.appendChild(slot);
     }
 
-    // Game - Init new Game
-    function initNewGame(boardA, boardB, map, elements, abilities, debug) {
+    // Game - Init new Round
+    function initNewRound(boardA, boardB, map, elements, abilities, debug) {
         if(useDebugMode == 'state'){console.log('Init New Game');}
 
         // Set Game Options
@@ -445,7 +396,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // ------------------------------------
     // Hepler Functions
     // ------------------------------------
-    // Create Random Damage Numbers
+    // Helper Function - Create Random Damage Numbers
     function getRandomDamageNumbers(total, parts, max) {
         // var total = 20;
         // var parts = 4;
@@ -465,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return arr;
     }
 
-    // Get Card Stats
+    // Helper Function - Get Card Stats
     function getCardStats(card) {
 
         var cardStats = [];
@@ -495,6 +446,51 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         return cardStats;
+    }
+
+    // Helper Function - Get Slot Targets
+    function getTargetSlots(battlefieldSlots, currentSlotIndex, currentMap) {
+        
+        var targetSlots = [];
+        var col = currentMap.split('')[0]; // cols of grid
+        var row = currentMap.split('')[2]; // rows of grid
+        
+        // Convert formats for calculations
+        col = parseInt(col, 10);
+        row = parseInt(row, 10);
+        currentSlotIndex = parseInt(currentSlotIndex, 10);
+        
+        // Check for grid edges
+        var isOnTopEdge = Math.floor(currentSlotIndex / col) === 0; // Slot on top edge
+        var isOnRightEdge = (currentSlotIndex+1) % col === 0; // Slot on right edge
+        var isOnBottomEdge = Math.floor( currentSlotIndex / col ) === (row - 1); // Slot on bottom edge
+        var isOnLeftEdge = currentSlotIndex % col === 0; // Slot on very left edge
+        
+        if (isOnTopEdge) {
+            targetSlots.push(null);
+        } else {
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex - col));
+        }
+        
+        if (isOnRightEdge) {
+            targetSlots.push(null);
+        } else {
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex + 1));
+        }
+        
+        if (isOnBottomEdge) {
+            targetSlots.push(null);
+        } else {
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex + col));
+        }
+        
+        if (isOnLeftEdge) {
+            targetSlots.push(null);
+        } else {
+            targetSlots.push(battlefieldSlots.item(currentSlotIndex - 1));
+        }
+
+        return targetSlots;
     }
 
     

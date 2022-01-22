@@ -21,6 +21,7 @@
     &__aside {
         width: $sidebar-width;
         padding: rem(20px);
+        user-select: none;
 
         // Scrollable + Hide Scrollbar
         overflow-x: hidden;
