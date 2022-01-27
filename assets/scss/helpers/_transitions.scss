@@ -7,7 +7,7 @@ $transition-type-expo  : ease-out-expo;
 $transition-type-circ  : ease-out-circ;
 $transition-type-back  : ease-out-back;
 $transition-duration   : 400ms;
-$transition-type       : $transition-type-back;
+$transition-type       : $transition-type-circ;
 
 @mixin transition($property: all, $duration: $transition-duration, $type: $transition-type, $delay: 0ms) {
 

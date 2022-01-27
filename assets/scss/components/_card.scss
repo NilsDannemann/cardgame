@@ -16,6 +16,9 @@
         flex: 1;
         transform-style: preserve-3d;
         will-change: transform;
+        background-image: url('../img/cards/card-bg.jpg');
+        background-size: cover;
+        border-radius: $card-border-radius;
         @include transition();
     }
     &__front {
@@ -23,25 +26,35 @@
         width: 100%;
         height: 100%;
         color: black;
-        background-color: #fff;
-        background-image: url('../img/cards/card-bg.jpg');
-        background-size: cover;
+        background-image: url('../img/cards/creatures/creature-1.png');
+        background-size: 100%;
+        background-position: center 10px;
+        background-repeat: no-repeat;
         border-radius: $card-border-radius;
         box-shadow: $card-box-shadow;
         backface-visibility: hidden;
+        @include transition();
+        &:hover {
+            background-size: 115%;
+        }
     }
     &__back {
         position: absolute;
         width: 100%;
         height: 100%;
         color: black;
-        background-color: #fff;
-        background-image: url('../img/cards/card-bg.jpg');
-        background-size: cover;
+        background-image: url('../img/cards/creatures/creature-1.png');
+        background-size: 100%;
+        background-position: center 10px;
+        background-repeat: no-repeat;
         backface-visibility: hidden;
         border-radius: $card-border-radius;
         box-shadow: $card-box-shadow;
         transform: rotateY(180deg); //For: flip effect
+        @include transition();
+        &:hover {
+            background-size: 115%;
+        }
     }
 
     // Damage Pointer
