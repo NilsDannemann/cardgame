@@ -36,7 +36,7 @@
         @include transition();
         &:hover {
             background-size: 115%;
-            background-position: center 10px;
+            background-position: center 12.5px;
         }
     }
     &__back {
@@ -55,7 +55,7 @@
         @include transition();
         &:hover {
             background-size: 115%;
-            background-position: center 10px;
+            background-position: center 12.5px;
         }
     }
 
