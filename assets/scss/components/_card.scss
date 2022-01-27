@@ -17,7 +17,8 @@
         transform-style: preserve-3d;
         will-change: transform;
         background-image: url('../img/cards/card-bg.jpg');
-        background-size: cover;
+        background-size: 100%;
+        background-position: center;
         border-radius: $card-border-radius;
         @include transition();
     }
