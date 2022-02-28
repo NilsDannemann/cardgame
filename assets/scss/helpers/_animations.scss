@@ -24,6 +24,13 @@
     }
 }
 
+@keyframes cardDraw {
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @-webkit-keyframes cointossFlipHeads {
     from { transform: rotateY(0); }
     to { transform: rotateY(1800deg); }

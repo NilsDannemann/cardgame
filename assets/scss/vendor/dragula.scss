@@ -21,6 +21,7 @@
   opacity: 0.2;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
   filter: alpha(opacity=20);
+  transform: none; //For: removing card draw effect when putting card back
   // &::before {content: '.gu-transit'}
 }
 

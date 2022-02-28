@@ -5,4 +5,13 @@
     &:not(:last-child){
         margin-bottom: rem(20px);
     }
+
+    & > * {
+        animation: cardDraw 200ms cubic-bezier(0.39, 0.575, 0.565, 1) 0s forwards;
+        // Prestate
+        opacity: 0;
+        transform: translateY(rem($card-height));
+        transform-origin: top center;
+    }
+    
 }

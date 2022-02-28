@@ -7,6 +7,8 @@
     border-radius: $card-border-radius;
     box-shadow: $card-box-shadow;
     cursor: pointer;
+    z-index: 1; //For: card draw effect overlay
+    position: relative; //For: card draw effect overlay
     
     &:not(:last-child){
         margin-bottom: rem($card-pool-gap);
