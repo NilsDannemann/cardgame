@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useElements = true;        // Later: use in initNewRound() to start game with/without elements
     var useAbilities = false;      // Later: use in initNewRound() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
+    var turnDuration = '7s';      // Options: '15s', '45s', ... 
     var battlefield = document.querySelector('.battlefield');
 
     // Interface
@@ -61,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
             cardDrop(el, target);
             checkCardStates();
             checkSlotStates();
-            changePlayer(playerCardBoardA, playerCardBoardB);
+            changePlayer();
         }
     });
     playerB.on('drop', function(el, target, source, sibling) {
@@ -70,17 +71,13 @@ document.addEventListener("DOMContentLoaded", function() {
             cardDrop(el, target);
             checkCardStates();
             checkSlotStates();
-            changePlayer(playerCardBoardB, playerCardBoardA);
+            changePlayer();
         }
     });
 
     // Player Action - End Turn
     endTurnButton.addEventListener('click', function(){
-        if ( playerCardBoardA.classList.contains('main__aside--active') ) {
-            changePlayer(playerCardBoardA, playerCardBoardB);
-        } else {
-            changePlayer(playerCardBoardB, playerCardBoardA);
-        }
+        changePlayer();
     });
 
 
@@ -276,10 +273,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Game - Change Player
-    function changePlayer(currentPlayer, nextPlayer) {
-
-        currentPlayer.classList.remove('main__aside--active');
-        nextPlayer.classList.add('main__aside--active');
+    function changePlayer() {
+        if ( playerCardBoardA.classList.contains('main__aside--active') ) {
+            playerCardBoardA.classList.remove('main__aside--active');
+            playerCardBoardB.classList.add('main__aside--active');
+        } else {
+            playerCardBoardB.classList.remove('main__aside--active');
+            playerCardBoardA.classList.add('main__aside--active');
+        }
+        startCountdownProgress(turnDuration);
     }
 
     // Game - Cointoss
@@ -311,10 +313,11 @@ document.addEventListener("DOMContentLoaded", function() {
             overlay.classList.add('overlay--hidden');
         }, 3500);
         
-        // Remove overlay
+        // Remove overlay & Start first countdown
         setTimeout(function(){
             overlay.remove();
-        }, 3750);
+            startCountdownProgress(turnDuration);
+        }, 3650);
 
         // Set starting player
         if(cointossResult <= 0.5) {
@@ -324,6 +327,30 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
     }
+
+    //Game - Countdown Timer
+    function startCountdownProgress(duration, callback) {
+        var buttonCountdownProgress = document.querySelector('.button--end-turn .button__countdown-progress');
+  
+        // Add current Player Color
+        if ( playerCardBoardA.classList.contains('main__aside--active') ) {
+            buttonCountdownProgress.classList.add('button__countdown-progress--red');
+            buttonCountdownProgress.classList.remove('button__countdown-progress--blue');
+        } else {
+            buttonCountdownProgress.classList.add('button__countdown-progress--blue');
+            buttonCountdownProgress.classList.remove('button__countdown-progress--red');
+        }
+        
+        // Callback after Animation
+        buttonCountdownProgress.addEventListener('animationend', function() {
+            changePlayer();
+        });
+        
+        // Start Animation
+        buttonCountdownProgress.style.animationDuration = duration;
+        buttonCountdownProgress.style.animationIterationCount = 1;
+        buttonCountdownProgress.style.animationPlayState = 'running';
+      }
 
     // Game - Create Battlefield Slot
     function createBattlefieldSlot(type) {

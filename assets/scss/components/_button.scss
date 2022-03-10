@@ -9,7 +9,32 @@
     cursor: pointer;
     border: none;
     
+    // End Turn Button
     &--end-turn {
         width: $card-width;
+        position: relative; //For: Timer Progress animation
+        overflow: hidden;
+    }
+
+    &__countdown-label {
+        z-index: 1; //For: Timer Progress overlay
+    }
+
+    &__countdown-progress {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        animation: countdownProgress;
+        animation-fill-mode: forwards;
+        animation-play-state: paused;
+        animation-timing-function: linear;
+
+        &--red {
+            background-color: $color-red;
+        }
+        &--blue {
+            background-color: $color-blue;
+        }
     }
 }

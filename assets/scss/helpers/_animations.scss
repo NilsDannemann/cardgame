@@ -31,6 +31,17 @@
   }
 }
 
+@keyframes countdownProgress {
+  0% {
+    width: 100%;
+    // background: #0F0; //Optional: Starting Color
+  }
+  100% {
+    width: 0%;
+    // background: #F00; //Optional: End Color
+  }
+}
+
 @-webkit-keyframes cointossFlipHeads {
     from { transform: rotateY(0); }
     to { transform: rotateY(1800deg); }
