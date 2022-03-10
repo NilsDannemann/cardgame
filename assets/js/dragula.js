@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useAbilities = false;      // Later: use in initNewRound() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
     var turnDuration = '15s';      // Options: '15s', '45s', ... 
-    var cardPoolSize = 3;          // Options: '15s', '45s', ... 
+    var cardPoolSize = 3;          // Options: 3, 4, ... 
     var battlefield = document.querySelector('.battlefield');
 
     // Interface
@@ -423,16 +423,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         // Player A - Draw Cards
-        cardDraw(playerCardPoolA, 'red');
-        cardDraw(playerCardPoolA, 'red');
-        cardDraw(playerCardPoolA, 'red');
+        for (var i = 1; i < cardPoolSize+1; i++) cardDraw(playerCardPoolA, 'red');
         // Player A - Reset Board
         boardA.scrollTop = 0;
         
         // Player A - Draw Cards
-        cardDraw(playerCardPoolB, 'blue');
-        cardDraw(playerCardPoolB, 'blue');
-        cardDraw(playerCardPoolB, 'blue');
+        for (var i = 1; i < cardPoolSize+1; i++) cardDraw(playerCardPoolB, 'blue');
         // Player B - Reset Board
         boardB.scrollTop = 0;
 
