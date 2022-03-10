@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Reset Animation
         buttonCountdownProgress.classList.remove('button__countdown-progress--animating');
-        // trigger a DOM reflow 
+        // Trigger a DOM reflow 
         void buttonCountdownProgress.offsetWidth; 
         
         // Add current Player Color
