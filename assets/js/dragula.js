@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useElements = true;        // Later: use in initNewRound() to start game with/without elements
     var useAbilities = false;      // Later: use in initNewRound() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
-    var turnDuration = '7s';      // Options: '15s', '45s', ... 
+    var turnDuration = '15s';      // Options: '15s', '45s', ... 
     var battlefield = document.querySelector('.battlefield');
 
     // Interface
@@ -329,9 +329,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     //Game - Countdown Timer
-    function startCountdownProgress(duration, callback) {
+    function startCountdownProgress(duration) {
         var buttonCountdownProgress = document.querySelector('.button--end-turn .button__countdown-progress');
-  
+        
+        // Reset Animation
+        buttonCountdownProgress.classList.remove('button__countdown-progress--animating');
+        // trigger a DOM reflow 
+        void buttonCountdownProgress.offsetWidth; 
+        
         // Add current Player Color
         if ( playerCardBoardA.classList.contains('main__aside--active') ) {
             buttonCountdownProgress.classList.add('button__countdown-progress--red');
@@ -346,10 +351,11 @@ document.addEventListener("DOMContentLoaded", function() {
             changePlayer();
         });
         
-        // Start Animation
+        // Add Animation Duration
         buttonCountdownProgress.style.animationDuration = duration;
-        buttonCountdownProgress.style.animationIterationCount = 1;
-        buttonCountdownProgress.style.animationPlayState = 'running';
+        
+        // Start Animation Duration
+        buttonCountdownProgress.classList.add('button__countdown-progress--animating');
       }
 
     // Game - Create Battlefield Slot

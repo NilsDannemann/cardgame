@@ -25,10 +25,14 @@
         width: 100%;
         position: absolute;
         left: 0;
-        animation: countdownProgress;
-        animation-fill-mode: forwards;
-        animation-play-state: paused;
-        animation-timing-function: linear;
+
+        &--animating {
+            animation: countdownProgress;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+            animation-play-state: running;
+            animation-timing-function: linear;
+        }
 
         &--red {
             background-color: $color-red;
