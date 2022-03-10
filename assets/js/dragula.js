@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useAbilities = false;      // Later: use in initNewRound() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
     var turnDuration = '15s';      // Options: '15s', '45s', ... 
+    var cardPoolSize = 3;          // Options: '15s', '45s', ... 
     var battlefield = document.querySelector('.battlefield');
 
     // Interface
@@ -86,6 +87,11 @@ document.addEventListener("DOMContentLoaded", function() {
     function cardDraw(cardPool, color) {
         if(useDebugMode == 'phases'){console.log('Card Draw');}
 
+        // Stop if full cardpool
+        if( cardPool.childElementCount == cardPoolSize ) {
+            return;
+        }
+        
         // Create the new card
         var card = document.createElement('div');
         var cardElements = ['card--fire','card--water','card--earth'];
@@ -277,9 +283,11 @@ document.addEventListener("DOMContentLoaded", function() {
         if ( playerCardBoardA.classList.contains('main__aside--active') ) {
             playerCardBoardA.classList.remove('main__aside--active');
             playerCardBoardB.classList.add('main__aside--active');
+            cardDraw(playerCardPoolB, 'blue');
         } else {
             playerCardBoardB.classList.remove('main__aside--active');
             playerCardBoardA.classList.add('main__aside--active');
+            cardDraw(playerCardPoolA, 'red');
         }
         startCountdownProgress(turnDuration);
     }
@@ -555,16 +563,5 @@ document.addEventListener("DOMContentLoaded", function() {
     playerPhaseBlockB.addEventListener('click', function(){
         updatePhase(playerPhaseBlockB);
     });
-
-    //Draw card on click on deck
-    var playerDeckA = document.querySelector( '.deck.deck--red' );
-    var playerDeckB = document.querySelector( '.deck.deck--blue' );
-    playerDeckA.addEventListener('click', function(){
-        cardDraw(playerCardPoolA, 'red');
-    });
-    playerDeckB.addEventListener('click', function(){
-        cardDraw(playerCardPoolB, 'blue');
-    });
-
 
 });
