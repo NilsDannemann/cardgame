@@ -8,6 +8,9 @@ document.addEventListener("DOMContentLoaded", function() {
     var useDebugMode = false;      // Options: 'phases', 'state' 
     var battlefield = document.querySelector('.battlefield');
 
+    // Interface
+    var endTurnButton = document.querySelector( '.button--end-turn' );
+
     // Init New Game
     var playerCardBoardA = document.querySelector( '.main__aside--left' );
     var playerCardBoardB = document.querySelector( '.main__aside--right' );
@@ -67,6 +70,15 @@ document.addEventListener("DOMContentLoaded", function() {
             cardDrop(el, target);
             checkCardStates();
             checkSlotStates();
+            changePlayer(playerCardBoardB, playerCardBoardA);
+        }
+    });
+
+    // Player Action - End Turn
+    endTurnButton.addEventListener('click', function(){
+        if ( playerCardBoardA.classList.contains('main__aside--active') ) {
+            changePlayer(playerCardBoardA, playerCardBoardB);
+        } else {
             changePlayer(playerCardBoardB, playerCardBoardA);
         }
     });
@@ -492,6 +504,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         return targetSlots;
     }
+
+      
 
     
 
