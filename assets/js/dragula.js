@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Reset Animation
         buttonCountdownProgress.classList.remove('button__countdown-progress--animating');
         // Trigger a DOM reflow 
-        void buttonCountdownProgress.offsetWidth; 
+        void buttonCountdownProgress.offsetWidth;
         
         // Add current Player Color
         if ( playerCardBoardA.classList.contains('main__aside--active') ) {
@@ -364,7 +364,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Start Animation Duration
         buttonCountdownProgress.classList.add('button__countdown-progress--animating');
-      }
+    }
 
     // Game - Create Battlefield Slot
     function createBattlefieldSlot(type) {
@@ -422,13 +422,17 @@ document.addEventListener("DOMContentLoaded", function() {
             for (var i = 1; i < 17; i++) createBattlefieldSlot(i);
         }
         
-        // Player A - Draw Cards
-        for (var i = 1; i < cardPoolSize+1; i++) cardDraw(playerCardPoolA, 'red');
+        // Player A - Draw initial Cards
+        setTimeout(function(){
+            for (var i = 1; i < cardPoolSize+1; i++) cardDraw(playerCardPoolA, 'red');
+        }, 3650);
         // Player A - Reset Board
         boardA.scrollTop = 0;
         
-        // Player A - Draw Cards
-        for (var i = 1; i < cardPoolSize+1; i++) cardDraw(playerCardPoolB, 'blue');
+        // Player A - Draw initial Cards
+        setTimeout(function(){
+            for (var i = 1; i < cardPoolSize+1; i++) cardDraw(playerCardPoolB, 'blue');
+        }, 3650);
         // Player B - Reset Board
         boardB.scrollTop = 0;
 
