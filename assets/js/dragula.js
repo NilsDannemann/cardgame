@@ -6,14 +6,15 @@ document.addEventListener("DOMContentLoaded", function() {
     var useElements = true;        // Later: use in initNewRound() to start game with/without elements
     var useAbilities = false;      // Later: use in initNewRound() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
-    var turnDuration = '5s';      // Options: '15s', '45s', ... 
+    var turnDuration = '5s';       // Options: '15s', '45s', ... 
     var cardPoolSize = 3;          // Options: 3, 4, ... 
     var battlefield = document.querySelector('.battlefield');
     
     // Interface
     var endTurnButton = document.querySelector( '.button--end-turn' );
-    var endTurnButtonCountdown = document.querySelector('.button--end-turn .button__countdown-progress');
-
+    var endTurnButtonTimer = document.querySelector('.button--end-turn .button__countdown-progress');
+    var turnTimer;
+    
     // Init New Game
     var playerCardBoardA = document.querySelector( '.main__aside--left' );
     var playerCardBoardB = document.querySelector( '.main__aside--right' );
@@ -290,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function() {
             playerCardBoardA.classList.add('main__aside--active');
             cardDraw(playerCardPoolA, 'red');
         }
-        startCountdownProgress(turnDuration);
+        startTurnTimer(turnDuration);
     }
 
     // Game - Cointoss
@@ -325,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Remove overlay & Start first countdown
         setTimeout(function(){
             overlay.remove();
-            startCountdownProgress(turnDuration);
+            startTurnTimer(turnDuration);
         }, 3650);
 
         // Set starting player
@@ -338,32 +339,32 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     //Game - Countdown Timer
-    function startCountdownProgress(duration) {
+    function startTurnTimer(duration) {
+        
+        // Trun Timer - Clear
+        window.clearTimeout(turnTimer);
+        // Trun Timer - Start
+        turnTimer = setTimeout(function(){ changePlayer() }, 5000);
         
         // Reset Animation
-        endTurnButtonCountdown.classList.remove('button__countdown-progress--animating');
-        // Trigger a DOM reflow 
-        void endTurnButtonCountdown.offsetWidth;
+        endTurnButtonTimer.classList.remove('button__countdown-progress--animating');
+        // Reset Animation - Trigger a DOM reflow 
+        void endTurnButtonTimer.offsetWidth;
         
         // Add current Player Color
         if ( playerCardBoardA.classList.contains('main__aside--active') ) {
-            endTurnButtonCountdown.classList.add('button__countdown-progress--red');
-            endTurnButtonCountdown.classList.remove('button__countdown-progress--blue');
+            endTurnButtonTimer.classList.add('button__countdown-progress--red');
+            endTurnButtonTimer.classList.remove('button__countdown-progress--blue');
         } else {
-            endTurnButtonCountdown.classList.add('button__countdown-progress--blue');
-            endTurnButtonCountdown.classList.remove('button__countdown-progress--red');
+            endTurnButtonTimer.classList.add('button__countdown-progress--blue');
+            endTurnButtonTimer.classList.remove('button__countdown-progress--red');
         }
-        
-        // Callback after Animation
-        endTurnButtonCountdown.addEventListener('animationend', function() {
-            changePlayer();
-        });
-        
+
         // Add Animation Duration
-        endTurnButtonCountdown.style.animationDuration = duration;
+        endTurnButtonTimer.style.animationDuration = duration;
         
         // Start Animation Duration
-        endTurnButtonCountdown.classList.add('button__countdown-progress--animating');
+        endTurnButtonTimer.classList.add('button__countdown-progress--animating');
     }
 
     // Game - Create Battlefield Slot
