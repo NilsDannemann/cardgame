@@ -18,11 +18,11 @@
         }
         &:nth-child(2) {
             transform: translateY(rem($card-height)*2);
-            animation-delay: 300ms;
+            animation-delay: 250ms;
         }
         &:nth-child(3) {
             transform: translateY(rem($card-height)*1);
-            animation-delay: 600ms;
+            animation-delay: 500ms;
         }
     }
     
