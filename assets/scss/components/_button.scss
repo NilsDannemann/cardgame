@@ -18,6 +18,8 @@
 
     &__countdown-label {
         z-index: 1; //For: Timer Progress overlay
+        font-weight: $font-weight-medium;
+        text-transform: uppercase;
     }
 
     &__countdown-progress {
