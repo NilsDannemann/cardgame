@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useElements = true;        // Later: use in initNewRound() to start game with/without elements
     var useAbilities = false;      // Later: use in initNewRound() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
-    var turnDuration = '5s';       // Options: '15s', '45s', ... 
+    var turnDuration = 15000;      // Options: in milliseconds
     var cardPoolSize = 3;          // Options: 3, 4, ... 
     var battlefield = document.querySelector('.battlefield');
     
@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Trun Timer - Clear
         window.clearTimeout(turnTimer);
         // Trun Timer - Start
-        turnTimer = setTimeout(function(){ changePlayer() }, 5000);
+        turnTimer = setTimeout(function(){ changePlayer() }, duration);
         
         // Reset Animation
         endTurnButtonTimer.classList.remove('button__countdown-progress--animating');
@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Add Animation Duration
-        endTurnButtonTimer.style.animationDuration = duration;
+        endTurnButtonTimer.style.animationDuration = duration + 'ms';
         
         // Start Animation Duration
         endTurnButtonTimer.classList.add('button__countdown-progress--animating');
