@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useElements = true;        // Later: use in initNewRound() to start game with/without elements
     var useAbilities = false;      // Later: use in initNewRound() to start game with/without abilities
     var useDebugMode = false;      // Options: 'phases', 'state' 
-    var turnDuration = 15000;      // Options: in milliseconds
+    var turnDuration = 20000;      // Options: in milliseconds
     var cardPoolSize = 3;          // Options: 3, 4, ... 
     var battlefield = document.querySelector('.battlefield');
     
