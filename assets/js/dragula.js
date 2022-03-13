@@ -228,10 +228,27 @@ document.addEventListener("DOMContentLoaded", function() {
     // Game - Check Game State
     function checkGameState() {
         
-        // Check if Round Complete (if all Slots filled)
-        if( playerA.containers.length == 1 || playerB.containers.length == 1 ) {
-            roundComplete = true;
+        // Continue if Round not Complete
+        if( playerA.containers.length != 1 || playerB.containers.length != 1 ) {
+            return;
         }
+        
+        // Complete Round if Round Complete (all Slots filled)
+        roundComplete = true;
+
+        // Determine Round-Winner
+        var playerASlots = document.querySelectorAll('.battlefield__slot--red').length;
+        var playerBSlots = document.querySelectorAll('.battlefield__slot--blue').length;
+        alert(playerASlots);
+        alert(playerBSlots);
+        if ( playerASlots > playerBSlots ) {
+            alert('Player A wins');
+        } else if( playerASlots < playerBSlots ) {
+            alert('Player B wins');
+        } else {
+            alert('Draw!');
+        }
+        
     }
 
     // Game - Check all Cards
