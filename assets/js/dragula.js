@@ -209,25 +209,22 @@ document.addEventListener("DOMContentLoaded", function() {
     function cardFlip(card, slot) {
 
         // Add flipped class
-        setTimeout(() => {
-            card.classList.toggle('card--flipped');
-        }, 100);
+        card.classList.toggle('card--flipped');
+
         // Add color class
-        setTimeout(() => {
-            if ( card.classList.contains('card--red') ) {
-                card.classList.remove('card--red');
-                card.classList.add('card--blue');
-            } else {
-                card.classList.remove('card--blue');
-                card.classList.add('card--red');
-            }
-        }, 150);
+        if ( card.classList.contains('card--red') ) {
+            card.classList.remove('card--red');
+            card.classList.add('card--blue');
+        } else {
+            card.classList.remove('card--blue');
+            card.classList.add('card--red');
+        }
+
     }
 
 
     // Game - Check Game State
     function checkGameState() {
-        
         // Continue if Round not Complete
         if( playerA.containers.length != 1 || playerB.containers.length != 1 ) {
             return;
@@ -235,12 +232,12 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Complete Round if Round Complete (all Slots filled)
         roundComplete = true;
-
+        
         // Determine Round-Winner
         var playerASlots = document.querySelectorAll('.battlefield__slot--red').length;
         var playerBSlots = document.querySelectorAll('.battlefield__slot--blue').length;
-        alert(playerASlots);
-        alert(playerBSlots);
+        alert('Player A:' + playerASlots);
+        alert('Player B:' + playerBSlots);
         if ( playerASlots > playerBSlots ) {
             alert('Player A wins');
         } else if( playerASlots < playerBSlots ) {
@@ -263,14 +260,14 @@ document.addEventListener("DOMContentLoaded", function() {
         var slots = document.querySelectorAll( '.battlefield__slot' );
         
         slots.forEach(slot => {
-            var slotIsFilled = slot.querySelectorAll('.card')[0];
+            var cardInSlot = slot.querySelectorAll('.card')[0];
 
-            if ( slotIsFilled ) {
+            if ( cardInSlot ) {
                 // Set slot-state to filled
                 slot.classList.add('battlefield__slot--filled');
                 
                 // Set slot-state to color
-                if ( slotIsFilled.classList.contains('card--red') ) {
+                if ( cardInSlot.classList.contains('card--red') ) {
                     slot.classList.add('battlefield__slot--red');
                     slot.classList.remove('battlefield__slot--blue');
                 } else {
@@ -307,6 +304,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Game - Change Player
     function changePlayer() {
+        
+        // Stop if Round Complete
+        if( roundComplete ) { return; }
+
+        // Change active Player & Draw Card
         if ( playerCardBoardA.classList.contains('main__aside--active') ) {
             playerCardBoardA.classList.remove('main__aside--active');
             playerCardBoardB.classList.add('main__aside--active');
