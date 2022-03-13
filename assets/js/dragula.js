@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", function() {
     var useDebugMode = false;      // Options: 'phases', 'state' 
     var turnDuration = 20000;      // Options: in milliseconds
     var cardPoolSize = 3;          // Options: 3, 4, ... 
-    var battlefield = document.querySelector('.battlefield');
     
     // Interface
+    var battlefield = document.querySelector('.battlefield');
     var endTurnButton = document.querySelector( '.button--end-turn' );
     var endTurnButtonTimer = document.querySelector('.button--end-turn .button__countdown-progress');
     var turnTimer;
@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function() {
             cardDrop(el, target);
             checkCardStates();
             checkSlotStates();
-            changePlayer();
         }
     });
     playerB.on('drop', function(el, target, source, sibling) {
@@ -74,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
             cardDrop(el, target);
             checkCardStates();
             checkSlotStates();
-            changePlayer();
         }
     });
 
