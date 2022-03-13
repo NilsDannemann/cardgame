@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useMap = '2x2';            // '2x2', '3x2', '4x2', '3x3', '4x3', '4x4' (cols x rows)
     var useElements = true;        // Options: true/false
     var useAbilities = false;      // Options: true/false
-    var turnDuration = 3000;      // Options: in ms
+    var turnDuration = 30000;      // Options: in ms
     var cardPoolSize = 3;          // Options: 3, 4, ... max: 9
     
     // Game Interface
