@@ -47,7 +47,8 @@
     }
 
     &--hidden {
-
+        pointer-events: none;
+        
         #{$this}__left {
             transform: translateX(-50vw);
         }
