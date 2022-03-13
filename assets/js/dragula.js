@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useElements = true;        // Options: true/false
     var useAbilities = false;      // Options: true/false
     var turnDuration = 3000;      // Options: in ms
-    var cardPoolSize = 3;          // Options: 3, 4, ... 
+    var cardPoolSize = 3;          // Options: 3, 4, ... max: 9
     
     // Game Interface
     var battlefield = document.querySelector('.battlefield');
@@ -225,23 +225,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Game - Check Game State
     function checkGameState() {
-        // Continue if Round not Complete
+        
+        // Continue Round if there are empty Slots left
         if( playerA.containers.length != 1 || playerB.containers.length != 1 ) {
             return;
         }
         
-        // Complete Round if Round Complete (all Slots filled)
+        // Set Round Complete (all Slots filled)
         roundComplete = true;
         
-        // Determine Round-Winner
+        // Set all Players to inactive
+        playerCardBoardA.classList.remove('main__aside--active');
+        playerCardBoardB.classList.remove('main__aside--active');
+
+        // Get Round-Winner
         var playerASlots = document.querySelectorAll('.battlefield__slot--red').length;
         var playerBSlots = document.querySelectorAll('.battlefield__slot--blue').length;
         alert('Player A:' + playerASlots);
         alert('Player B:' + playerBSlots);
         if ( playerASlots > playerBSlots ) {
-            alert('Player A wins');
+            alert('Player A Wins');
         } else if( playerASlots < playerBSlots ) {
-            alert('Player B wins');
+            alert('Player B Wins');
         } else {
             alert('Draw!');
         }
