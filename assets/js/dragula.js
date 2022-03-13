@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Game - Check Game State
     function checkGameState() {
         
-        // Check if Round Complete
+        // Check if Round Complete (if all Slots filled)
         if( playerA.containers.length == 1 || playerB.containers.length == 1 ) {
             roundComplete = true;
         }
