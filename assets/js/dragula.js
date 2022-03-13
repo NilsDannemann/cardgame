@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var useMap = '2x2';            // '2x2', '3x2', '4x2', '3x3', '4x3', '4x4' (cols x rows)
     var useElements = true;        // Options: true/false
     var useAbilities = false;      // Options: true/false
-    var turnDuration = 20000;      // Options: in ms
+    var turnDuration = 3000;      // Options: in ms
     var cardPoolSize = 3;          // Options: 3, 4, ... 
     
     // Game Interface
@@ -346,26 +346,10 @@ document.addEventListener("DOMContentLoaded", function() {
         
     }
 
-    //Game - Countdown Timer
+    //Game - Turn Timer
     function startTurnTimer(duration) {
         
-        // Check if Round Complete
-        if( roundComplete ) {
-            console.log('Round Complete');
-            return;
-        }
-
-        // Trun Timer - Clear
-        window.clearTimeout(turnTimer);
-        // Trun Timer - Start
-        turnTimer = setTimeout(function(){ changePlayer() }, duration);
-        
-        // Reset Animation
-        endTurnButtonTimer.classList.remove('button__countdown-progress--animating');
-        // Reset Animation - Trigger a DOM reflow 
-        void endTurnButtonTimer.offsetWidth;
-        
-        // Add current Player Color
+        // Set current Player Color
         if ( playerCardBoardA.classList.contains('main__aside--active') ) {
             endTurnButtonTimer.classList.add('button__countdown-progress--red');
             endTurnButtonTimer.classList.remove('button__countdown-progress--blue');
@@ -373,11 +357,25 @@ document.addEventListener("DOMContentLoaded", function() {
             endTurnButtonTimer.classList.add('button__countdown-progress--blue');
             endTurnButtonTimer.classList.remove('button__countdown-progress--red');
         }
-
-        // Add Animation Duration
-        endTurnButtonTimer.style.animationDuration = duration + 'ms';
         
-        // Start Animation Duration
+        // Reset Timer Timeout
+        window.clearTimeout(turnTimer);
+        // Reset Timer Animation
+        endTurnButtonTimer.classList.remove('button__countdown-progress--animating');
+        // Reset Timer Animation - Trigger a DOM reflow 
+        void endTurnButtonTimer.offsetWidth;
+
+        // Stop & Reset Timer if Round Complete
+        if( roundComplete ) {
+            endTurnButtonTimer.className = 'button__countdown-progress';
+            return; 
+        }
+        
+        // Start new Timer if Round Ongoing
+        turnTimer = setTimeout(function(){ changePlayer() }, duration);
+
+        // Start new Timer Animation
+        endTurnButtonTimer.style.animationDuration = duration + 'ms';
         endTurnButtonTimer.classList.add('button__countdown-progress--animating');
     }
 
