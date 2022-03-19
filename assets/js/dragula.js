@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     // Game Settings
-    var useMap = '2x2';            // '2x2', '3x2', '4x2', '3x3', '4x3', '4x4' (cols x rows)
+    var useMap = '4x3';            // '2x2', '3x2', '4x2', '3x3', '4x3', '4x4' (cols x rows)
     var useElements = true;        // Options: true/false
     var useAbilities = false;      // Options: true/false
     var turnDuration = 30000;      // Options: in ms
